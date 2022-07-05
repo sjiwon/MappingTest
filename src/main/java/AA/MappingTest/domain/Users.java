@@ -19,20 +19,28 @@ public class Users {
     @Column(name = "user_id")
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private String nickname;
 
+    @Column(nullable = false, unique = true)
     private String loginId;
 
+    @Column(nullable = false)
     private String loginPassword;
 
+    @Column(nullable = false)
     private String schoolName;
 
+    @Column(nullable = false, unique = true)
     private String phoneNumber;
 
+    @Column(nullable = false)
     private String address;
 
+    @Column(nullable = false)
     private LocalDate birth;
 
     @OneToMany(mappedBy = "user")

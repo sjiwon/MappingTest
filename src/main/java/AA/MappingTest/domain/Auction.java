@@ -19,20 +19,24 @@ public class Auction {
     @Column(name = "auction_id")
     private Long id;
 
+    @Column(nullable = false)
     private Integer bid_price;
 
+    @Column(nullable = false)
     private LocalDateTime startDate;
 
+    @Column(nullable = false)
     private LocalDateTime endDate;
 
+    @Column(nullable = false)
     private boolean finishFlag; // DB에 저장되는 값은 {true = 1, false = 0}
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private Users user;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "art_id")
+    @JoinColumn(name = "art_id", nullable = false, unique = true)
     private Art art;
 
     @OneToMany(mappedBy = "auction")

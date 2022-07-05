@@ -16,10 +16,10 @@ public class LikeArt {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private Users user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "art_id")
+    @JoinColumn(name = "art_id", nullable = false)
     private Art art;
 }

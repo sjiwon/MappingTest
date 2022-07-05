@@ -26,7 +26,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @Slf4j
 @SpringBootTest
-@RequiredArgsConstructor
 @Transactional
 class UserServiceTest {
     @Autowired
@@ -36,7 +35,7 @@ class UserServiceTest {
     PointHistoryRepository pointHistoryRepository;
 
     @Autowired
-    private EntityManager em;
+    EntityManager em;
 
     @BeforeEach
     void init() {
@@ -64,8 +63,9 @@ class UserServiceTest {
     @DisplayName("User회원가입 + Point Instance 자동 생성되는지")
     void test1() {
         log.info("------------------ 회원가입 테스트 시작 ------------------");
-        // when
-        Users joinUser1 = userService.joinUser(new Users(
+
+        // given
+        Users userA = new Users(
                 "서지원",
                 "서지원123",
                 "sjiwon",
@@ -74,9 +74,9 @@ class UserServiceTest {
                 "01012345678",
                 "경기도 안양시 동안구 비산3동 평촌대로401번길 44-9 덕원아파트 가동 403호",
                 LocalDate.of(2000, 1, 18)
-        ));
+        );
 
-        Users joinUser2 = userService.joinUser(new Users(
+        Users userB = new Users(
                 "서지원2",
                 "서지원123456",
                 "sjiwon1234",
@@ -85,11 +85,15 @@ class UserServiceTest {
                 "01099998888",
                 "경기도 안양시 동안구 비산3동 평촌대로401번길 44-9 덕원아파트 가동 403호",
                 LocalDate.of(2020, 10, 31)
-        ));
+        );
+
+        // when
+        Users joinUserA = userService.joinUser(userA);
+        Users joinUserB = userService.joinUser(userB);
 
         // then
-        assertThat(joinUser1).isNotNull();
-        assertThat(joinUser2).isNotNull();
+        assertThat(joinUserA).isEqualTo(userA);
+        assertThat(joinUserB).isEqualTo(userB);
         log.info("------------------ 회원가입 테스트 종료 ------------------");
     }
 

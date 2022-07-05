@@ -11,4 +11,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ArtEditForm {
     private String description;
+
+    @Override
+    public String toString() {
+        return "\nArtEditForm{" +
+                "\n\tdescription='" + description + '\'' +
+                "\n}";
+    }
 }

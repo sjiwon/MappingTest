@@ -2,6 +2,7 @@ package AA.MappingTest.domain;
 
 import AA.MappingTest.enums.PurchaseCategory;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,23 +19,26 @@ public class PurchaseHistory {
     @Column(name = "purchase_history_id")
     private Long id;
 
+    @Column(nullable = false)
     private Integer price;
 
+    @CreationTimestamp
     private LocalDateTime purchaseDate;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private PurchaseCategory purchaseCategory; // GENERAL(일반 판매를 통한 구매), AUCTION(경매를 통한 낙찰)
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private Users user;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "art_id")
+    @JoinColumn(name = "art_id", nullable = false, unique = true)
     private Art art;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "auction_id")
+    @JoinColumn(name = "auction_id", unique = true)
     private Auction auction;
 
     public PurchaseHistory(Integer price, LocalDateTime purchaseDate,

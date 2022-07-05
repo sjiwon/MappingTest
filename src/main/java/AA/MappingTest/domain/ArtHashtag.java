@@ -16,10 +16,10 @@ public class ArtHashtag {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "art_id")
+    @JoinColumn(name = "art_id", nullable = false)
     private Art art;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "hashtag_id")
+    @JoinColumn(name = "hashtag_id", nullable = false)
     private Hashtag hashtag;
 }

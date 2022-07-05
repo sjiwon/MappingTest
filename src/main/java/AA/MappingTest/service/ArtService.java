@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -19,20 +21,37 @@ public class ArtService {
     // 작품 등록
     public Art registerArt(Art art){
         Art saveArt = artRepository.save(art);
-        log.info("{} 가 등록한 작품 = {}", saveArt.getUser(), saveArt);
+        log.info("\n{} 가 등록한 작품 = {}", saveArt.getUser(), saveArt);
         return saveArt;
     }
 
     @Transactional
     // 작품 정보 수정(설명)
     public void editArt(Long id, ArtEditForm editArt){
-        log.info("수정할 Art 정보 = {}", editArt);
+        log.info("\n수정할 정보(설명) = {}", editArt);
 
         Art findArt = artRepository.findById(id).orElseThrow();
-        log.info("정보 수정 Art = {}", findArt);
+        log.info("\n수정할 Art = {}", findArt);
 
-        findArt.setDecription(editArt.getDescription());
+        findArt.setDescription(editArt.getDescription());
 
-        log.info("수정된 Art 정보 = {}", findArt);
+        log.info("\n수정된 Art 정보 = {}", findArt);
+    }
+
+    // 작품 판매 타입 (경매/일반)
+    public String getSaleType(Long id){
+        String type = artRepository.isAuctionOrGeneral(id).name();
+        log.info("\n{}의 판매 타입 = {}", id, type);
+        return type;
+    }
+
+    // 특정 회원의 작품리스트 검색
+    public List<Art> artListFromUserId(Long id){
+        List<Art> artListByUserId = artRepository.findArtListByUserId(id);
+        log.info("\n=== user_id : {}의 작품 리스트 ===", id);
+        for (Art art : artListByUserId) {
+            System.out.println(art);
+        }
+        return artListByUserId;
     }
 }
