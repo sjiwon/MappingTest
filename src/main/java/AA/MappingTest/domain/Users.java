@@ -50,9 +50,6 @@ public class Users {
     @OneToMany(mappedBy = "user")
     private List<LikeArt> likeArtList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "artist")
-    private List<LikeArtist> likeArtistList = new ArrayList<>();
-
     @OneToMany(mappedBy = "user")
     private List<PointHistory> pointHistoryList = new ArrayList<>();
 

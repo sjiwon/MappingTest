@@ -15,11 +15,16 @@ public class LikeArtist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(
+                    name = "user_id",
+                    referencedColumnName = "user_id"
+            ),
+            @JoinColumn(
+                    name = "artist_id",
+                    referencedColumnName = "user_id"
+            )
+    })
     private Users user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "artist_id")
-    private Users artist;
 }
