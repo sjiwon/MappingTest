@@ -67,16 +67,16 @@ public class Users {
 
     @Override
     public String toString() {
-        return "Users{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", loginId='" + loginId + '\'' +
-                ", loginPassword='" + loginPassword + '\'' +
-                ", schoolName='" + schoolName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", address='" + address + '\'' +
-                ", birth=" + birth +
-                '}';
+        return "\nUsers{" +
+                "\n\tid=" + id +
+                ", \n\tname='" + name + '\'' +
+                ", \n\tnickname='" + nickname + '\'' +
+                ", \n\tloginId='" + loginId + '\'' +
+                ", \n\tloginPassword='" + loginPassword + '\'' +
+                ", \n\tschoolName='" + schoolName + '\'' +
+                ", \n\tphoneNumber='" + phoneNumber + '\'' +
+                ", \n\taddress='" + address + '\'' +
+                ", \n\tbirth=" + birth +
+                "\n}";
     }
 }

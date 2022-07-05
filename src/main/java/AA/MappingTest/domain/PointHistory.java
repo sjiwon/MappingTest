@@ -47,6 +47,11 @@ public class PointHistory {
         this.user = user;
     }
 
+    public PointHistory(Integer point, Users user) {
+        this.point = point;
+        this.user = user;
+    }
+
     public PointHistory(DealType dealType, Integer dealAmount, Integer point, Users user) {
         this.dealType = dealType;
         this.dealAmount = dealAmount;
@@ -64,12 +69,12 @@ public class PointHistory {
 
     @Override
     public String toString() {
-        return "PointHistory{" +
-                "id=" + id +
-                ", dealType=" + dealType +
-                ", dealAmount=" + dealAmount +
-                ", point=" + point +
-                ", dealDate=" + dealDate +
-                '}';
+        return "\nPointHistory{" +
+                "\n\tid=" + id +
+                ", \n\tdealType=" + dealType +
+                ", \n\tdealAmount=" + dealAmount +
+                ", \n\tpoint=" + point +
+                ", \n\tdealDate=" + dealDate +
+                "\n}";
     }
 }
