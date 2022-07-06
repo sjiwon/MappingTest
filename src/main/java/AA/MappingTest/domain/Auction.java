@@ -20,16 +20,13 @@ public class Auction {
     private Long id;
 
     @Column(nullable = false)
-    private Integer bid_price;
+    private Integer bidPrice;
 
     @Column(nullable = false)
     private LocalDateTime startDate;
 
     @Column(nullable = false)
     private LocalDateTime endDate;
-
-    @Column(nullable = false)
-    private boolean finishFlag; // DB에 저장되는 값은 {true = 1, false = 0}
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -42,22 +39,21 @@ public class Auction {
     @OneToMany(mappedBy = "auction")
     private List<AuctionHistory> auctionHistoryList = new ArrayList<>();
 
-    public Auction(Integer bid_price, LocalDateTime startDate,
-                   LocalDateTime endDate, boolean finishFlag) {
-        this.bid_price = bid_price;
+    public Auction(Integer bidPrice, LocalDateTime startDate, LocalDateTime endDate, Users user, Art art) {
+        this.bidPrice = bidPrice;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.finishFlag = finishFlag;
+        this.user = user;
+        this.art = art;
     }
 
     @Override
     public String toString() {
-        return "Auction{" +
-                "id=" + id +
-                ", bid_price=" + bid_price +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", finishFlag=" + finishFlag +
-                '}';
+        return "\nAuction{" +
+                "\n\tid=" + id +
+                ", \n\tbidPrice=" + bidPrice +
+                ", \n\tstartDate=" + startDate +
+                ", \n\tendDate=" + endDate +
+                "\n}";
     }
 }
