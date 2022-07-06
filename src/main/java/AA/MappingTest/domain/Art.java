@@ -83,7 +83,6 @@ public class Art {
                 ", \n\tsaleType=" + saleType +
                 ", \n\tregisterDate=" + registerDate +
                 ", \n\tstorageName='" + storageName + '\'' +
-                ", \n\tuser=" + user +
                 "\n}";
     }
 }

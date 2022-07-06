@@ -7,7 +7,6 @@ import AA.MappingTest.exception.NoMoneyException;
 import AA.MappingTest.repository.PointHistoryRepository;
 import AA.MappingTest.service.DTO.PointTransferForm;
 import AA.MappingTest.service.DTO.UserEditForm;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -47,7 +46,7 @@ class UserServiceTest {
                 "auction",
                 "auction_history",
                 "like_art",
-                "like_artist",
+//                "like_artist",
                 "point_history",
                 "purchase_history"
         };

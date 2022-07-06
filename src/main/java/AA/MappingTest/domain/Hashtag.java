@@ -3,6 +3,8 @@ package AA.MappingTest.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,7 +21,18 @@ public class Hashtag {
     @Column(nullable = false, unique = true)
     private String name;
 
+    @OneToMany(mappedBy = "hashtag")
+    private List<ArtHashtag> artHashtagList = new ArrayList<>();
+
     public Hashtag(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "\nHashtag{" +
+                "\n\tid=" + id +
+                ", \n\tname='" + name + '\'' +
+                "\n}";
     }
 }

@@ -22,4 +22,17 @@ public class ArtHashtag {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hashtag_id", nullable = false)
     private Hashtag hashtag;
+
+    public ArtHashtag(Art art, Hashtag hashtag) {
+        this.art = art;
+        this.hashtag = hashtag;
+    }
+
+    @Override
+    public String toString() {
+        return "\nArtHashtag{" +
+                "\n\tid=" + id +
+                ", \n\thashtag=" + hashtag +
+                "\n}";
+    }
 }
