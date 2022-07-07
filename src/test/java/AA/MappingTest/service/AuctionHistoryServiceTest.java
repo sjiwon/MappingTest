@@ -145,13 +145,13 @@ class AuctionHistoryServiceTest {
         }
 
         List<AuctionHistory> auctionListFromUserB = auctionHistoryService.getAuctionListFromUserId(userB.getId());
-        System.out.println("===== userA의 경매 비드 내역 =====");
+        System.out.println("===== userB의 경매 비드 내역 =====");
         for (AuctionHistory auctionHistory : auctionListFromUserB) {
             System.out.println(auctionHistory);
         }
 
         List<AuctionHistory> auctionListFromUserC = auctionHistoryService.getAuctionListFromUserId(userC.getId());
-        System.out.println("===== userA의 경매 비드 내역 =====");
+        System.out.println("===== userC의 경매 비드 내역 =====");
         for (AuctionHistory auctionHistory : auctionListFromUserC) {
             System.out.println(auctionHistory);
         }
