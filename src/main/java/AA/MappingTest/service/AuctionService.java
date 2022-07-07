@@ -46,12 +46,12 @@ public class AuctionService {
             log.info("\n등록할 경매 = {}", saveAuction);
 
             // 경매가 시작되면 AuctonHistory에 base info 저장
-            AuctionHistory auctionHistory = auctionHistoryRepository.save(new AuctionHistory(
-                    saveAuction.getBidPrice(),
-                    user,
-                    art,
-                    saveAuction
-            ));
+            AuctionHistory auctionHistory = new AuctionHistory(saveAuction.getBidPrice());
+            auctionHistory.addAuctionHistoryToUser(user);
+            auctionHistory.addAuctionHistoryToArt(art);
+            auctionHistory.addAuctionHistoryToAuction(saveAuction);
+
+            auctionHistoryRepository.save(auctionHistory);
             log.info("\nAuctionHistory에 등록된 경매 정보 = {}", auctionHistory);
 
             return saveAuction;
@@ -100,17 +100,16 @@ public class AuctionService {
                 throw new MoreBidPrice("현재 경매가보다 높게 비드해주세요");
             }
             else {
-                findAuction.setUser(auctionBid.getUser());
-                findAuction.setBidPrice(auctionBid.getBidPrice());
+                findAuction.applyNewBid(auctionBid.getUser(), auctionBid.getBidPrice());
                 log.info("\n경매에 대한 update bid 정보 = {}", findAuction);
 
                 // AuctionHistory에 추가
-                AuctionHistory auctionHistory = auctionHistoryRepository.save(new AuctionHistory(
-                        auctionBid.getBidPrice(),
-                        auctionBid.getUser(),
-                        findAuction.getArt(),
-                        findAuction
-                ));
+                AuctionHistory auctionHistory = new AuctionHistory(auctionBid.getBidPrice());
+                auctionHistory.addAuctionHistoryToUser(auctionBid.getUser());
+                auctionHistory.addAuctionHistoryToArt(findAuction.getArt());
+                auctionHistory.addAuctionHistoryToAuction(findAuction);
+
+                auctionHistoryRepository.save(auctionHistory);
 
                 log.info("\n새로 추가된 경매 bid 정보 = {}", auctionHistory);
             }

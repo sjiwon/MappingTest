@@ -33,7 +33,7 @@ public class ArtService {
         Art findArt = artRepository.findById(id).orElseThrow();
         log.info("\n수정할 Art = {}", findArt);
 
-        findArt.setDescription(editArt.getDescription());
+        findArt.changeDescription(editArt.getDescription());
 
         log.info("\n수정된 Art 정보 = {}", findArt);
     }

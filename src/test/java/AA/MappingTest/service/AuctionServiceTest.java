@@ -60,7 +60,7 @@ class AuctionServiceTest {
                 "auction",
                 "auction_history",
                 "like_art",
-                "like_artist",
+//                "like_artist",
                 "point_history",
                 "purchase_history"
         };
@@ -95,9 +95,9 @@ class AuctionServiceTest {
                 "이 노래는 성시경이 불렀습니다",
                 10000,
                 SaleType.AUCTION,
-                storageNameArtA,
-                user
+                storageNameArtA
         );
+        art.addUser(user);
         artService.registerArt(art);
 
         // when
@@ -142,9 +142,9 @@ class AuctionServiceTest {
                 "이 노래는 성시경이 불렀습니다",
                 10000,
                 SaleType.GENERAL,
-                storageNameArtA,
-                user
+                storageNameArtA
         );
+        art.addUser(user);
         artService.registerArt(art);
 
         // when
@@ -189,9 +189,9 @@ class AuctionServiceTest {
                 "이 노래는 성시경이 불렀습니다",
                 10000,
                 SaleType.AUCTION,
-                storageNameArtA,
-                user
+                storageNameArtA
         );
+        art.addUser(user);
         artService.registerArt(art);
 
         Auction auction = auctionService.registerAuction(
@@ -233,9 +233,9 @@ class AuctionServiceTest {
                 "이 노래는 성시경이 불렀습니다",
                 10000,
                 SaleType.AUCTION,
-                storageNameArtA,
-                user
+                storageNameArtA
         );
+        art.addUser(user);
         artService.registerArt(art);
 
         Auction auction = auctionService.registerAuction(
@@ -313,9 +313,9 @@ class AuctionServiceTest {
                 "이 노래는 성시경이 불렀습니다",
                 10000,
                 SaleType.AUCTION,
-                storageNameArtA,
-                user
+                storageNameArtA
         );
+        art.addUser(user);
         artService.registerArt(art);
 
         Auction auction = auctionService.registerAuction(
@@ -393,9 +393,9 @@ class AuctionServiceTest {
                 "이 노래는 성시경이 불렀습니다",
                 10000,
                 SaleType.AUCTION,
-                storageNameArtA,
-                user
+                storageNameArtA
         );
+        art.addUser(user);
         artService.registerArt(art);
 
         Auction auction = auctionService.registerAuction(
@@ -468,9 +468,9 @@ class AuctionServiceTest {
                 "이 노래는 성시경이 불렀습니다",
                 10000,
                 SaleType.AUCTION,
-                storageNameArtA,
-                user
+                storageNameArtA
         );
+        art.addUser(user);
         artService.registerArt(art);
 
         Auction auction = auctionService.registerAuction(

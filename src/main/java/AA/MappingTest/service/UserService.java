@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Slf4j
@@ -27,7 +26,7 @@ public class UserService {
     // 1. 회원가입 (최초 회원가입시 Point Instance도 자동 생성)
     public Users joinUser(Users user){
         Users joinUser = userRepository.save(user);
-        PointHistory pointHistory = pointHistoryRepository.save(new PointHistory(joinUser));
+        PointHistory pointHistory = pointHistoryRepository.save(new PointHistory(user));
 
         log.info("\n회원가입 User = {}", joinUser);
         log.info("\nPointInstance 생성(JOIN) = {} / 생성된 user = {}", pointHistory, pointHistory.getUser());
@@ -36,10 +35,10 @@ public class UserService {
     }
 
     @Transactional
-    // UserServiceTest 6의 예외 Case를 위한 Service Logic (보유 포인트량 설정)
-    public Users joinUser2(Users user, Integer pointAmount){
+    // UserServiceTest 6을 위한 joinUser2
+    public Users joinUser2(Users user, Integer point){
         Users joinUser = userRepository.save(user);
-        PointHistory pointHistory = pointHistoryRepository.save(new PointHistory(pointAmount, joinUser));
+        PointHistory pointHistory = pointHistoryRepository.save(new PointHistory(user, point));
 
         log.info("\n회원가입 User = {}", joinUser);
         log.info("\nPointInstance 생성(JOIN) = {} / 생성된 user = {}", pointHistory, pointHistory.getUser());
@@ -56,15 +55,15 @@ public class UserService {
         log.info("\n정보 수정 User = {}", findUser);
 
         if(StringUtils.hasText(editUser.getNickname())) {
-            findUser.setNickname(editUser.getNickname());
+            findUser.changeNickname(editUser.getNickname());
         }
 
         if(StringUtils.hasText(editUser.getPhoneNumber())) {
-            findUser.setPhoneNumber(editUser.getPhoneNumber());
+            findUser.changePhoneNumber(editUser.getPhoneNumber());
         }
 
         if(StringUtils.hasText(editUser.getAddress())) {
-            findUser.setAddress(editUser.getAddress());
+            findUser.changeAddress(editUser.getAddress());
         }
 
         log.info("\n수정된 User 정보 = {}", findUser);

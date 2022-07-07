@@ -7,9 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "auction_history")
 public class AuctionHistory {
@@ -25,22 +23,34 @@ public class AuctionHistory {
     private LocalDateTime bidDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private Users user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "art_id", nullable = false)
+    @JoinColumn(name = "art_id")
     private Art art;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "auction_id", nullable = false)
+    @JoinColumn(name = "auction_id")
     private Auction auction;
 
-    public AuctionHistory(int bidPrice, Users user, Art art, Auction auction) {
-        this.bidPrice = bidPrice;
+    public void addAuctionHistoryToUser(Users user){
         this.user = user;
+        user.getAuctionHistoryList().add(this);
+    }
+
+    public void addAuctionHistoryToArt(Art art){
         this.art = art;
+        art.getAuctionHistoryList().add(this);
+    }
+
+    public void addAuctionHistoryToAuction(Auction auction){
         this.auction = auction;
+        auction.getAuctionHistoryList().add(this);
+    }
+
+    public AuctionHistory(int bidPrice) {
+        this.bidPrice = bidPrice;
     }
 
     @Override

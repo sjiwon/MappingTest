@@ -8,9 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "purchase_history")
 public class PurchaseHistory {
@@ -41,10 +39,25 @@ public class PurchaseHistory {
     @JoinColumn(name = "auction_id", unique = true)
     private Auction auction;
 
-    public PurchaseHistory(Integer price, LocalDateTime purchaseDate,
-                           PurchaseCategory purchaseCategory) {
+    public void addPurchaseHistoryToUser(Users user){
+        this.user = user;
+        user.getPurchaseHistoryList().add(this);
+    }
+
+    public PurchaseHistory(Integer price, PurchaseCategory purchaseCategory) {
         this.price = price;
-        this.purchaseDate = purchaseDate;
         this.purchaseCategory = purchaseCategory;
     }
+
+    @Override
+    public String toString() {
+        return "\nPurchaseHistory{" +
+                "\n\tid=" + id +
+                ", \n\tprice=" + price +
+                ", \n\tpurchaseDate=" + purchaseDate +
+                ", \n\tpurchaseCategory=" + purchaseCategory +
+                ", \n\tuser=" + user +
+                "\n}";
+    }
 }
+

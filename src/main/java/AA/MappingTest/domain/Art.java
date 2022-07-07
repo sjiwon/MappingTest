@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "art")
 public class Art {
@@ -45,44 +43,44 @@ public class Art {
     private Users user;
 
     @OneToMany(mappedBy = "art")
-    private List<ArtHashtag> artHashtagList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "art")
+    @OrderBy(value = "bidDate desc")
     private List<AuctionHistory> auctionHistoryList = new ArrayList<>();
 
-    @OneToOne(mappedBy = "art")
-    private PurchaseHistory purchaseHistory;
-
-    public Art(String name, String description, Integer initPrice,
-               SaleType saleType, String storageName, Users user) {
-        this.name = name;
-        this.description = description;
-        this.initPrice = initPrice;
-        this.saleType = saleType;
-        this.storageName = storageName;
+    public void addUser(Users user){
         this.user = user;
+        user.getArtList().add(this);
     }
 
-    public Art(String name, String description, Integer initPrice, SaleType saleType,
-               LocalDateTime registerDate, String storageName, Users user) {
+    public Art(String name, String description, Integer initPrice, SaleType saleType, String storageName) {
         this.name = name;
         this.description = description;
         this.initPrice = initPrice;
         this.saleType = saleType;
         this.registerDate = registerDate;
         this.storageName = storageName;
-        this.user = user;
+    }
+
+    // 작품 이름 수정
+    public void changeArtName(String name){
+        this.name = name;
+    }
+
+    // 작품 설명 수정
+    public void changeDescription(String description){
+        this.description = description;
     }
 
     @Override
     public String toString() {
         return "\nArt{" +
-                "\n\tname='" + name + '\'' +
+                "\n\tid=" + id +
+                ", \n\tname='" + name + '\'' +
                 ", \n\tdescription='" + description + '\'' +
                 ", \n\tinitPrice=" + initPrice +
                 ", \n\tsaleType=" + saleType +
                 ", \n\tregisterDate=" + registerDate +
                 ", \n\tstorageName='" + storageName + '\'' +
+                ", \n\tuser=" + user +
                 "\n}";
     }
 }

@@ -7,9 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "hashtag")
 public class Hashtag {
@@ -21,10 +19,11 @@ public class Hashtag {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "hashtag")
-    private List<ArtHashtag> artHashtagList = new ArrayList<>();
-
     public Hashtag(String name) {
+        this.name = name;
+    }
+
+    public void changeHashtagName(String name){
         this.name = name;
     }
 

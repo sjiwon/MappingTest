@@ -3,17 +3,12 @@ package AA.MappingTest.domain;
 import AA.MappingTest.enums.DealType;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.DynamicInsert;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "point_history")
 public class PointHistory {
@@ -40,19 +35,20 @@ public class PointHistory {
     private Users user;
 
     @PrePersist
-    void prePersist(){
+    void init(){
         this.dealType = (this.dealType == null ? DealType.JOIN : this.dealType);
         this.dealAmount = (this.dealAmount == null ? 0 : this.dealAmount);
         this.point = (this.point == null ? 0 : this.point);
     }
 
-    public PointHistory(Users user) {
+    public PointHistory(Users user) { // 신규가입시 Instance Generate용도
         this.user = user;
     }
 
-    public PointHistory(Integer point, Users user) {
-        this.point = point;
+    // 테스트용 생성자
+    public PointHistory(Users user, Integer point) {
         this.user = user;
+        this.point = point;
     }
 
     public PointHistory(DealType dealType, Integer dealAmount, Integer point, Users user) {
@@ -60,14 +56,6 @@ public class PointHistory {
         this.dealAmount = dealAmount;
         this.point = point;
         this.user = user;
-    }
-
-    public PointHistory(DealType dealType, Integer dealAmount,
-                        Integer point, LocalDateTime dealDate) {
-        this.dealType = dealType;
-        this.dealAmount = dealAmount;
-        this.point = point;
-        this.dealDate = dealDate;
     }
 
     @Override
@@ -78,6 +66,7 @@ public class PointHistory {
                 ", \n\tdealAmount=" + dealAmount +
                 ", \n\tpoint=" + point +
                 ", \n\tdealDate=" + dealDate +
+                ", \n\tuser=" + user +
                 "\n}";
     }
 }

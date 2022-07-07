@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "auction")
 public class Auction {
@@ -37,6 +35,7 @@ public class Auction {
     private Art art;
 
     @OneToMany(mappedBy = "auction")
+    @OrderBy(value = "bidDate desc")
     private List<AuctionHistory> auctionHistoryList = new ArrayList<>();
 
     public Auction(Integer bidPrice, LocalDateTime startDate, LocalDateTime endDate, Users user, Art art) {
@@ -47,6 +46,11 @@ public class Auction {
         this.art = art;
     }
 
+    public void applyNewBid(Users user, Integer bidPrice){
+        this.user = user;
+        this.bidPrice = bidPrice;
+    }
+
     @Override
     public String toString() {
         return "\nAuction{" +
@@ -54,6 +58,7 @@ public class Auction {
                 ", \n\tbidPrice=" + bidPrice +
                 ", \n\tstartDate=" + startDate +
                 ", \n\tendDate=" + endDate +
+                ", \n\tuser=" + user +
                 "\n}";
     }
 }

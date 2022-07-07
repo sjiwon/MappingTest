@@ -57,7 +57,7 @@ class ArtHashtagServiceTest {
                 "auction",
                 "auction_history",
                 "like_art",
-                "like_artist",
+//                "like_artist",
                 "point_history",
                 "purchase_history"
         };
@@ -113,9 +113,9 @@ class ArtHashtagServiceTest {
                 "이 노래는 성시경이 불렀습니다.",
                 10000,
                 SaleType.GENERAL,
-                storageNameArtA,
-                user
+                storageNameArtA
         );
+        artA.addUser(user);
         artService.registerArt(artA);
 
         String storageNameArtB = UUID.randomUUID().toString().replaceAll("-", "");
@@ -125,9 +125,9 @@ class ArtHashtagServiceTest {
                 "이 노래는 성시경이 불렀습니다.",
                 20000,
                 SaleType.AUCTION,
-                storageNameArtB,
-                user
+                storageNameArtB
         );
+        artB.addUser(user);
         artService.registerArt(artB);
 
         ArtHashtag artHashtag1 = artHashtagService.addHashtagToArt(artA, hashtagA);

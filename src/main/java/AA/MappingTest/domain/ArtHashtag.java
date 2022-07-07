@@ -5,9 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "art_hashtag")
 public class ArtHashtag {

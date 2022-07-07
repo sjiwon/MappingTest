@@ -7,10 +7,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter 
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "users")
 public class Users {
@@ -44,25 +42,22 @@ public class Users {
     private LocalDate birth;
 
     @OneToMany(mappedBy = "user")
+    @OrderBy(value = "registerDate desc")
     private List<Art> artList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
-    private List<Auction> auctionList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
+    @OrderBy(value = "bidDate desc")
     private List<AuctionHistory> auctionHistoryList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
+    @OrderBy(value = "purchaseDate desc")
     private List<PurchaseHistory> purchaseHistoryList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     private List<LikeArt> likeArtList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
-    private List<PointHistory> pointHistoryList = new ArrayList<>();
-
-    public Users(String name, String nickname, String loginId, String loginPassword, String schoolName,
-                 String phoneNumber, String address, LocalDate birth) {
+    public Users(String name, String nickname, String loginId, String loginPassword,
+                 String schoolName, String phoneNumber, String address, LocalDate birth) {
         this.name = name;
         this.nickname = nickname;
         this.loginId = loginId;
@@ -71,6 +66,22 @@ public class Users {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.birth = birth;
+    }
+
+    public void changeNickname(String nickname){
+        this.nickname = nickname;
+    }
+
+    public void changePhoneNumber(String phoneNumber){
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void changeAddress(String address){
+        this.address = address;
+    }
+
+    public void changePassword(String loginPassword){
+        this.loginPassword = loginPassword;
     }
 
     @Override

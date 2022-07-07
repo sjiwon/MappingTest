@@ -45,7 +45,7 @@ class ArtServiceTest {
                 "auction",
                 "auction_history",
                 "like_art",
-                "like_artist",
+//                "like_artist",
                 "point_history",
                 "purchase_history"
         };
@@ -63,26 +63,27 @@ class ArtServiceTest {
         // given
         Users userA = new Users(
                 "서지원",
-                "Seo Ji Won",
+                "서지원123",
                 "sjiwon",
                 "1234",
                 "경기대학교",
-                "01011112222",
-                "경기도 안양",
+                "01012345678",
+                "경기도 안양시 동안구 비산3동 평촌대로401번길 44-9 덕원아파트 가동 403호",
                 LocalDate.of(2000, 1, 18)
         );
-        userService.joinUser(userA);
 
         Users userB = new Users(
-                "홍길동",
-                "Hong Gil Dong",
-                "gildong",
-                "5678",
-                "서울대학교",
+                "서지원2",
+                "서지원123456",
+                "sjiwon1234",
+                "12345678",
+                "경기대학교2",
                 "01099998888",
-                "서울특별시 서초구",
-                LocalDate.of(2020, 1, 18)
+                "경기도 안양시 동안구 비산3동 평촌대로401번길 44-9 덕원아파트 가동 403호",
+                LocalDate.of(2020, 10, 31)
         );
+
+        userService.joinUser(userA);
         userService.joinUser(userB);
 
         String serverFileNameArtA = UUID.randomUUID().toString().replaceAll("-", "");
@@ -92,9 +93,9 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 15000,
                 SaleType.GENERAL,
-                serverFileNameArtA,
-                userA
+                serverFileNameArtA
         );
+        artA.addUser(userA);
 
         String serverFileNameArtB = UUID.randomUUID().toString().replaceAll("-", "");
         log.info("\nArtB가 서버에 저장되는 이름(UUID) = {}", serverFileNameArtB);
@@ -103,9 +104,9 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 30000,
                 SaleType.GENERAL,
-                serverFileNameArtB,
-                userA
+                serverFileNameArtB
         );
+        artB.addUser(userA);
 
         String serverFileNameArtC = UUID.randomUUID().toString().replaceAll("-", "");
         log.info("\nArtC가 서버에 저장되는 이름(UUID) = {}", serverFileNameArtC);
@@ -114,9 +115,9 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 18000,
                 SaleType.GENERAL,
-                serverFileNameArtC,
-                userA
+                serverFileNameArtC
         );
+        artC.addUser(userA);
 
         String serverFileNameArtD = UUID.randomUUID().toString().replaceAll("-", "");
         log.info("\nArtD가 서버에 저장되는 이름(UUID) = {}", serverFileNameArtD);
@@ -125,9 +126,9 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 엠씨더맥스가 부른 노래입니다...........",
                 45000,
                 SaleType.GENERAL,
-                serverFileNameArtD,
-                userB
+                serverFileNameArtD
         );
+        artD.addUser(userB);
 
         String serverFileNameArtE = UUID.randomUUID().toString().replaceAll("-", "");
         log.info("\nArtE가 서버에 저장되는 이름(UUID) = {}", serverFileNameArtE);
@@ -136,9 +137,9 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 엠씨더맥스가 부른 노래입니다...........",
                 35000,
                 SaleType.GENERAL,
-                serverFileNameArtE,
-                userB
+                serverFileNameArtE
         );
+        artE.addUser(userB);
 
         // when
         Art registerArtA = artService.registerArt(artA);
@@ -179,9 +180,9 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 15000,
                 SaleType.GENERAL,
-                serverFileNameArtA,
-                userA
+                serverFileNameArtA
         );
+        artA.addUser(userA);
         artService.registerArt(artA);
 
         // when
@@ -216,9 +217,10 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 15000,
                 SaleType.GENERAL,
-                serverFileNameArtA,
-                userA
+                serverFileNameArtA
+
         );
+        artA.addUser(userA);
         artService.registerArt(artA);
 
         String serverFileNameArtB = UUID.randomUUID().toString().replaceAll("-", "");
@@ -228,9 +230,9 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 30000,
                 SaleType.AUCTION,
-                serverFileNameArtB,
-                userA
+                serverFileNameArtB
         );
+        artB.addUser(userA);
         artService.registerArt(artB);
 
         // when
@@ -266,9 +268,9 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 15000,
                 SaleType.GENERAL,
-                serverFileNameArtA,
-                userA
+                serverFileNameArtA
         );
+        artA.addUser(userA);
         artService.registerArt(artA);
 
         String serverFileNameArtB = UUID.randomUUID().toString().replaceAll("-", "");
@@ -278,9 +280,9 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 30000,
                 SaleType.GENERAL,
-                serverFileNameArtB,
-                userA
+                serverFileNameArtB
         );
+        artB.addUser(userA);
         artService.registerArt(artB);
 
         String serverFileNameArtC = UUID.randomUUID().toString().replaceAll("-", "");
@@ -290,9 +292,9 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 18000,
                 SaleType.GENERAL,
-                serverFileNameArtC,
-                userA
+                serverFileNameArtC
         );
+        artC.addUser(userA);
         artService.registerArt(artC);
 
         String serverFileNameArtD = UUID.randomUUID().toString().replaceAll("-", "");
@@ -302,9 +304,9 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 엠씨더맥스가 부른 노래입니다...........",
                 45000,
                 SaleType.GENERAL,
-                serverFileNameArtD,
-                userA
+                serverFileNameArtD
         );
+        artD.addUser(userA);
         artService.registerArt(artD);
 
         // when
