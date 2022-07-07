@@ -36,24 +36,15 @@ public class AuctionService {
             throw new NoAuctionTypeException("등록할 때 경매로 등록하지 않았으므로 경매에 등록할 수 없습니다");
         }
         else {
-            Auction saveAuction = auctionRepository.save(new Auction(
+            Auction saveAuction = new Auction(
                     10000,
                     start,
                     end,
-                    user,
                     art
-            ));
+            );
             log.info("\n등록할 경매 = {}", saveAuction);
 
-            // 경매가 시작되면 AuctonHistory에 base info 저장
-            AuctionHistory auctionHistory = new AuctionHistory(saveAuction.getBidPrice());
-            auctionHistory.addAuctionHistoryToUser(user);
-            auctionHistory.addAuctionHistoryToArt(art);
-            auctionHistory.addAuctionHistoryToAuction(saveAuction);
-
-            auctionHistoryRepository.save(auctionHistory);
-            log.info("\nAuctionHistory에 등록된 경매 정보 = {}", auctionHistory);
-
+            auctionRepository.save(saveAuction);
             return saveAuction;
         }
     }
@@ -90,7 +81,7 @@ public class AuctionService {
         log.info("\n새로운 비드 정보 = {}", auctionBid);
 
         Auction findAuction = auctionRepository.findById(id).orElseThrow();
-        log.info("\n비드 대상 경매 정보 = {}", findAuction);
+        log.info("\n비드한 경매 정보 = {}", findAuction);
 
         if(Objects.equals(auctionBid.getUser().getId(), findAuction.getArt().getUser().getId())){
             throw new NoBidMyArt("본인 작품에는 경매 비드를 할 수 없습니다");
@@ -111,7 +102,7 @@ public class AuctionService {
 
                 auctionHistoryRepository.save(auctionHistory);
 
-                log.info("\n새로 추가된 경매 bid 정보 = {}", auctionHistory);
+                log.info("\n추가된 AuctionHistory = {}", auctionHistory);
             }
         }
     }

@@ -101,7 +101,7 @@ class AuctionServiceTest {
         artService.registerArt(art);
 
         // when
-        Auction auction = auctionService.registerAuction(
+        Auction registerAuction = auctionService.registerAuction(
                 user,
                 art,
                 LocalDateTime.of(2022, 7, 7, 13, 0),
@@ -109,13 +109,8 @@ class AuctionServiceTest {
         );
 
         // then
-        List<AuctionHistory> findAuctionHistoryFromAuctionId = auctionHistoryService.getAuctionListFromArtId(auction.getId());
-        for (AuctionHistory auctionHistory : findAuctionHistoryFromAuctionId) {
-            System.out.println(auctionHistory);
-        }
-
-        assertThat(auction.getUser()).isEqualTo(user);
-        assertThat(auction.getArt()).isEqualTo(art);
+        assertThat(registerAuction.getUser()).isEqualTo(user);
+        assertThat(registerAuction.getArt()).isEqualTo(art);
     }
 
     // 1.1 경매 등록 (예외 발생)
@@ -154,15 +149,6 @@ class AuctionServiceTest {
                 LocalDateTime.of(2022, 7, 7, 13, 0),
                 LocalDateTime.of(2022, 7, 8, 13, 0)
         )).isInstanceOf(NoAuctionTypeException.class);
-
-//        // then
-//        List<AuctionHistory> findAuctionHistoryFromAuctionId = auctionHistoryService.getAuctionListFromArtId(auction.getId());
-//        for (AuctionHistory auctionHistory : findAuctionHistoryFromAuctionId) {
-//            System.out.println(auctionHistory);
-//        }
-//
-//        assertThat(auction.getUser()).isEqualTo(user);
-//        assertThat(auction.getArt()).isEqualTo(art);
     }
 
     // 2. 경매 끝났는지 여부
@@ -283,7 +269,7 @@ class AuctionServiceTest {
         for (AuctionHistory auctionHistory : auctionListFromArtId) {
             System.out.println(auctionHistory);
         }
-        assertThat(auctionListFromArtId.size()).isEqualTo(6);
+        assertThat(auctionListFromArtId.size()).isEqualTo(5);
 
         AuctionHighestUserForm info = auctionService.getInfo(auction.getId());
         assertThat(info.getUser()).isEqualTo(userB);
@@ -363,7 +349,7 @@ class AuctionServiceTest {
         for (AuctionHistory auctionHistory : auctionListFromArtId) {
             System.out.println(auctionHistory);
         }
-        assertThat(auctionListFromArtId.size()).isEqualTo(4);
+        assertThat(auctionListFromArtId.size()).isEqualTo(3);
 
         AuctionHighestUserForm info = auctionService.getInfo(auction.getId());
         assertThat(info.getUser()).isEqualTo(userB);
@@ -372,7 +358,7 @@ class AuctionServiceTest {
 
     // 3-2 경매 비드 (경매 최근 비드보다 작게 비드 = 예외)
     @Test
-    @DisplayName("경매 최고 bid에 대한 정보 (예외 : 본인 작품에 비드)")
+    @DisplayName("경매 최고 bid에 대한 정보 (예외 : 경매가보다 작게 비드)")
     void test3_2() {
         Users user = new Users(
                 "서지원",
@@ -441,7 +427,7 @@ class AuctionServiceTest {
             System.out.println(auctionHistory);
         }
 
-        assertThat(auctionListFromArtId.size()).isEqualTo(1);
+        assertThat(auctionListFromArtId.size()).isEqualTo(0);
     }
 
     // 4. 경매 대상 작품 확인

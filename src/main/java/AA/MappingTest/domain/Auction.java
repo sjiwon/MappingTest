@@ -27,8 +27,8 @@ public class Auction {
     private LocalDateTime endDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private Users user;
+    @JoinColumn(name = "user_id")
+    private Users user; // 경매에 참여하는 사람들 (최고가 Bid로 매번 update) & 처음 경매 등록할때는 NULL 허용
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "art_id", nullable = false, unique = true)
@@ -38,11 +38,10 @@ public class Auction {
     @OrderBy(value = "bidDate desc")
     private List<AuctionHistory> auctionHistoryList = new ArrayList<>();
 
-    public Auction(Integer bidPrice, LocalDateTime startDate, LocalDateTime endDate, Users user, Art art) {
+    public Auction(Integer bidPrice, LocalDateTime startDate, LocalDateTime endDate, Art art) { // 경매 처음 등록할 때 사용
         this.bidPrice = bidPrice;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.user = user;
         this.art = art;
     }
 
