@@ -38,10 +38,11 @@ public class Auction {
     @OrderBy(value = "bidDate desc")
     private List<AuctionHistory> auctionHistoryList = new ArrayList<>();
 
-    public Auction(Integer bidPrice, LocalDateTime startDate, LocalDateTime endDate, Art art) { // 경매 처음 등록할 때 사용
+    public Auction(Integer bidPrice, LocalDateTime startDate, LocalDateTime endDate, Users user, Art art) { // 경매 처음 등록할 때 사용
         this.bidPrice = bidPrice;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.user = user;
         this.art = art;
     }
 

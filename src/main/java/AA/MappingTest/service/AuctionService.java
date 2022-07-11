@@ -40,6 +40,7 @@ public class AuctionService {
                     10000,
                     start,
                     end,
+                    user,
                     art
             );
             log.info("\n등록할 경매 = {}", saveAuction);
