@@ -17,28 +17,28 @@ public class Users {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "nickname", nullable = false)
     private String nickname;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "login_id", nullable = false, unique = true)
     private String loginId;
 
-    @Column(nullable = false)
+    @Column(name = "login_password", nullable = false)
     private String loginPassword;
 
-    @Column(nullable = false)
+    @Column(name = "school_name", nullable = false)
     private String schoolName;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
 
-    @Column(nullable = false)
+    @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(nullable = false)
+    @Column(name = "birth", nullable = false)
     private LocalDate birth;
 
     @OneToMany(mappedBy = "user")

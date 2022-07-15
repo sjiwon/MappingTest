@@ -18,16 +18,17 @@ public class PointHistory {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "deal_type", nullable = false)
     private DealType dealType; // JOIN(신규가입 - 포인트내역 instance 생성 = default), CHARGE(충전), REFUND(환불), USE(사용)
 
-    @Column(nullable = false)
+    @Column(name = "deal_amount", nullable = false)
     private Integer dealAmount; // default 0
 
-    @Column(nullable = false)
+    @Column(name = "point", nullable = false)
     private Integer point; // default 0
 
     @CreationTimestamp
+    @Column(name = "deal_date")
     private LocalDateTime dealDate;
 
     @ManyToOne(fetch = FetchType.LAZY)

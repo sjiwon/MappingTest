@@ -15,11 +15,11 @@ public class AuctionHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "bid_price", nullable = false)
     private int bidPrice;
 
     @CreationTimestamp
-    @Column(nullable = false)
+    @Column(name = "bid_date", nullable = false)
     private LocalDateTime bidDate;
 
     @ManyToOne(fetch = FetchType.LAZY)

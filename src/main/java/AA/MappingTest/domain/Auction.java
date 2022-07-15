@@ -17,13 +17,13 @@ public class Auction {
     @Column(name = "auction_id")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "bid_price", nullable = false)
     private Integer bidPrice;
 
-    @Column(nullable = false)
+    @Column(name = "start_date", nullable = false)
     private LocalDateTime startDate;
 
-    @Column(nullable = false)
+    @Column(name = "end_date", nullable = false)
     private LocalDateTime endDate;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -19,23 +19,24 @@ public class Art {
     @Column(name = "art_id")
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(nullable = false)
+    @Column(name = "init_price", nullable = false)
     private Integer initPrice;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "sale_type", nullable = false)
     private SaleType saleType; // GENERAL(일반 판매), AUCTION(경매를 통한 판매)
 
     @CreationTimestamp
+    @Column(name = "register_date")
     private LocalDateTime registerDate;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "storage_name", nullable = false, unique = true)
     private String storageName;
 
     @ManyToOne(fetch = FetchType.LAZY)
