@@ -3,6 +3,7 @@ package AA.MappingTest.service;
 import AA.MappingTest.domain.*;
 import AA.MappingTest.enums.DealType;
 import AA.MappingTest.exception.NoMoneyException;
+import AA.MappingTest.exception.NoUserInfoException;
 import AA.MappingTest.repository.PointHistoryRepository;
 import AA.MappingTest.repository.UserRepository;
 import AA.MappingTest.service.DTO.PointTransferForm;
@@ -85,7 +86,7 @@ public class UserService {
 
     // 5. 소속 학교 찾기
     public String findSchoolById(Long id){
-        String schoolName = Objects.requireNonNull(userRepository.findById(id).orElseThrow()).getSchoolName();
+        String schoolName = userRepository.findSchoolByUserId(id);
         log.info("\n[user_id = {}] -> 소속 학교 = {}", id, schoolName);
         return schoolName;
     }
@@ -96,11 +97,11 @@ public class UserService {
         Users findUser = userRepository.findById(id).orElse(null);
         log.info("\n포인트 거래할 회원 정보 = {}", findUser);
 
-        Integer findUserPoint = Objects.requireNonNull(pointHistoryRepository.findPointHistoryByUserId(id)
-                        .stream()
-                        .max(Comparator.comparing(PointHistory::getDealDate))
-                        .orElse(null))
-                        .getPoint();
+        if(findUser == null){
+            throw new NoUserInfoException("유저 정보가 없습니다");
+        }
+
+        Integer findUserPoint = pointHistoryRepository.findPointHistoryByUserId(findUser.getId()).get(0).getPoint();
         log.info("\n{}의 현재 포인트 보유량 = {}", findUser, findUserPoint);
 
         if(transferForm.getDealType() == DealType.CHARGE){

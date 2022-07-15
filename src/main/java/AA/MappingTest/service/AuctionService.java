@@ -10,7 +10,6 @@ import AA.MappingTest.exception.NoAuctionTypeException;
 import AA.MappingTest.exception.NoBidMyArt;
 import AA.MappingTest.repository.AuctionHistoryRepository;
 import AA.MappingTest.repository.AuctionRepository;
-import AA.MappingTest.repository.PurchaseHistoryRepository;
 import AA.MappingTest.service.DTO.AuctionBidForm;
 import AA.MappingTest.service.DTO.AuctionHighestUserForm;
 import lombok.RequiredArgsConstructor;
@@ -70,11 +69,10 @@ public class AuctionService {
 
     // 4. 현재 경매 최고가 User의 정보 & Bid 금액
     public AuctionHighestUserForm getInfo(Long id){
-        Auction findAuction = auctionRepository.findById(id).orElseThrow();
-        AuctionHighestUserForm highestUserForm = new AuctionHighestUserForm(findAuction.getUser(), findAuction.getBidPrice());
-        log.info("\n현재 경매 최고가 비드 User 정보 = {}", highestUserForm);
+        AuctionHighestUserForm highestUserByAuctionId = auctionRepository.findHighestUserByAuctionId(id);
+        log.info("\n현재 경매 최고가 비드 User 정보 = {}", highestUserByAuctionId);
 
-        return highestUserForm;
+        return highestUserByAuctionId;
     }
     
     // 5. 실시간 경매 진행
@@ -82,7 +80,7 @@ public class AuctionService {
         log.info("\n새로운 비드 정보 = {}", auctionBid);
 
         Auction findAuction = auctionRepository.findById(id).orElseThrow();
-        log.info("\n비드한 경매 정보 = {}", findAuction);
+        log.info("\n비드 대상 경매 정보 = {}", findAuction);
 
         if(Objects.equals(auctionBid.getUser().getId(), findAuction.getArt().getUser().getId())){
             throw new NoBidMyArt("본인 작품에는 경매 비드를 할 수 없습니다");
@@ -108,10 +106,10 @@ public class AuctionService {
         }
     }
 
-    // 6. [auction_id]에 해당하는 경매의 대상작품 조회
+    // 6. [auction_id]에 해당하는 경매의 작품 조회
     public Art getArtFromAuctionId(Long id){
-        Art findArt = auctionRepository.findById(id).orElseThrow().getArt();
-        log.info("\n{}에 해당하는 작품 = {}", id, findArt);
-        return findArt;
+        Art findArtByAuctionId = auctionRepository.findArtByAuctionId(id).getArt();
+        log.info("\n{}에 해당하는 작품 = {}", id, findArtByAuctionId);
+        return findArtByAuctionId;
     }
 }
