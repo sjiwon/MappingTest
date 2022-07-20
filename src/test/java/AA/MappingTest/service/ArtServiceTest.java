@@ -93,6 +93,7 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 15000,
                 SaleType.GENERAL,
+                "artA-UploadName",
                 serverFileNameArtA
         );
         artA.addUser(userA);
@@ -104,6 +105,7 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 30000,
                 SaleType.GENERAL,
+                "artB-UploadName",
                 serverFileNameArtB
         );
         artB.addUser(userA);
@@ -115,6 +117,7 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 18000,
                 SaleType.GENERAL,
+                "artC-UploadName",
                 serverFileNameArtC
         );
         artC.addUser(userA);
@@ -126,6 +129,7 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 엠씨더맥스가 부른 노래입니다...........",
                 45000,
                 SaleType.GENERAL,
+                "artD-UploadName",
                 serverFileNameArtD
         );
         artD.addUser(userB);
@@ -137,6 +141,7 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 엠씨더맥스가 부른 노래입니다...........",
                 35000,
                 SaleType.GENERAL,
+                "artE-UploadName",
                 serverFileNameArtE
         );
         artE.addUser(userB);
@@ -180,6 +185,7 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 15000,
                 SaleType.GENERAL,
+                "artA-UploadName",
                 serverFileNameArtA
         );
         artA.addUser(userA);
@@ -217,6 +223,7 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 15000,
                 SaleType.GENERAL,
+                "artA-UploadName",
                 serverFileNameArtA
 
         );
@@ -230,6 +237,7 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 30000,
                 SaleType.AUCTION,
+                "artB-UploadName",
                 serverFileNameArtB
         );
         artB.addUser(userA);
@@ -268,6 +276,7 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 15000,
                 SaleType.GENERAL,
+                "artA-UploadName",
                 serverFileNameArtA
         );
         artA.addUser(userA);
@@ -280,6 +289,7 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 30000,
                 SaleType.GENERAL,
+                "artB-UploadName",
                 serverFileNameArtB
         );
         artB.addUser(userA);
@@ -292,6 +302,7 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 18000,
                 SaleType.GENERAL,
+                "artC-UploadName",
                 serverFileNameArtC
         );
         artC.addUser(userA);
@@ -304,6 +315,7 @@ class ArtServiceTest {
                 "이 작품은 사실 노래이고 엠씨더맥스가 부른 노래입니다...........",
                 45000,
                 SaleType.GENERAL,
+                "artD-UploadName",
                 serverFileNameArtD
         );
         artD.addUser(userA);

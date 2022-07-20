@@ -95,6 +95,7 @@ class AuctionServiceTest {
                 "이 노래는 성시경이 불렀습니다",
                 10000,
                 SaleType.AUCTION,
+                "art-UploadName",
                 storageNameArtA
         );
         art.addUser(user);
@@ -137,6 +138,7 @@ class AuctionServiceTest {
                 "이 노래는 성시경이 불렀습니다",
                 10000,
                 SaleType.GENERAL,
+                "art-UploadName",
                 storageNameArtA
         );
         art.addUser(user);
@@ -175,6 +177,7 @@ class AuctionServiceTest {
                 "이 노래는 성시경이 불렀습니다",
                 10000,
                 SaleType.AUCTION,
+                "art-UploadName",
                 storageNameArtA
         );
         art.addUser(user);
@@ -219,6 +222,7 @@ class AuctionServiceTest {
                 "이 노래는 성시경이 불렀습니다",
                 10000,
                 SaleType.AUCTION,
+                "art-UploadName",
                 storageNameArtA
         );
         art.addUser(user);
@@ -299,6 +303,7 @@ class AuctionServiceTest {
                 "이 노래는 성시경이 불렀습니다",
                 10000,
                 SaleType.AUCTION,
+                "art-UploadName",
                 storageNameArtA
         );
         art.addUser(user);
@@ -379,6 +384,7 @@ class AuctionServiceTest {
                 "이 노래는 성시경이 불렀습니다",
                 10000,
                 SaleType.AUCTION,
+                "art-UploadName",
                 storageNameArtA
         );
         art.addUser(user);
@@ -454,6 +460,7 @@ class AuctionServiceTest {
                 "이 노래는 성시경이 불렀습니다",
                 10000,
                 SaleType.AUCTION,
+                "art-UploadName",
                 storageNameArtA
         );
         art.addUser(user);

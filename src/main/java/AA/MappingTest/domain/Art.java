@@ -36,6 +36,9 @@ public class Art {
     @Column(name = "register_date")
     private LocalDateTime registerDate;
 
+    @Column(name = "upload_name", nullable = false)
+    private String uploadName;
+
     @Column(name = "storage_name", nullable = false, unique = true)
     private String storageName;
 
@@ -52,12 +55,13 @@ public class Art {
         user.getArtList().add(this);
     }
 
-    public Art(String name, String description, Integer initPrice, SaleType saleType, String storageName) {
+    public Art(String name, String description, Integer initPrice, SaleType saleType, String uploadName, String storageName) {
         this.name = name;
         this.description = description;
         this.initPrice = initPrice;
         this.saleType = saleType;
         this.registerDate = registerDate;
+        this.uploadName = uploadName;
         this.storageName = storageName;
     }
 
@@ -80,6 +84,7 @@ public class Art {
                 ", \n\tinitPrice=" + initPrice +
                 ", \n\tsaleType=" + saleType +
                 ", \n\tregisterDate=" + registerDate +
+                ", \n\tuploadName=" + uploadName +
                 ", \n\tstorageName='" + storageName + '\'' +
                 ", \n\tuser=" + user +
                 "\n}";

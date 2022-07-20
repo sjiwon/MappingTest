@@ -113,6 +113,7 @@ class ArtHashtagServiceTest {
                 "이 노래는 성시경이 불렀습니다.",
                 10000,
                 SaleType.GENERAL,
+                "artA-UploadName",
                 storageNameArtA
         );
         artA.addUser(user);
@@ -125,6 +126,7 @@ class ArtHashtagServiceTest {
                 "이 노래는 성시경이 불렀습니다.",
                 20000,
                 SaleType.AUCTION,
+                "artB-UploadName",
                 storageNameArtB
         );
         artB.addUser(user);
