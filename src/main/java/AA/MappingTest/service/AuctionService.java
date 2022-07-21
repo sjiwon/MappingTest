@@ -5,9 +5,9 @@ import AA.MappingTest.domain.Auction;
 import AA.MappingTest.domain.AuctionHistory;
 import AA.MappingTest.domain.Users;
 import AA.MappingTest.enums.SaleType;
-import AA.MappingTest.exception.MoreBidPrice;
+import AA.MappingTest.exception.LessBidException;
 import AA.MappingTest.exception.NoAuctionTypeException;
-import AA.MappingTest.exception.NoBidMyArt;
+import AA.MappingTest.exception.CannotBidMyArtException;
 import AA.MappingTest.repository.AuctionHistoryRepository;
 import AA.MappingTest.repository.AuctionRepository;
 import AA.MappingTest.service.DTO.AuctionBidForm;
@@ -83,11 +83,11 @@ public class AuctionService {
         log.info("\n비드 대상 경매 정보 = {}", findAuction);
 
         if(Objects.equals(auctionBid.getUser().getId(), findAuction.getArt().getUser().getId())){
-            throw new NoBidMyArt("본인 작품에는 경매 비드를 할 수 없습니다");
+            throw new CannotBidMyArtException("본인 작품에는 경매 비드를 할 수 없습니다");
         }
         else {
             if(auctionBid.getBidPrice() <= findAuction.getBidPrice()){
-                throw new MoreBidPrice("현재 경매가보다 높게 비드해주세요");
+                throw new LessBidException("현재 경매가보다 높게 비드해주세요");
             }
             else {
                 findAuction.applyNewBid(auctionBid.getUser(), auctionBid.getBidPrice());

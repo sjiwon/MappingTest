@@ -5,13 +5,12 @@ import AA.MappingTest.domain.Auction;
 import AA.MappingTest.domain.AuctionHistory;
 import AA.MappingTest.domain.Users;
 import AA.MappingTest.enums.SaleType;
-import AA.MappingTest.exception.MoreBidPrice;
+import AA.MappingTest.exception.LessBidException;
 import AA.MappingTest.exception.NoAuctionTypeException;
-import AA.MappingTest.exception.NoBidMyArt;
+import AA.MappingTest.exception.CannotBidMyArtException;
 import AA.MappingTest.service.DTO.AuctionBidForm;
 import AA.MappingTest.service.DTO.AuctionHighestUserForm;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,11 +23,9 @@ import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @SpringBootTest
@@ -347,7 +344,7 @@ class AuctionServiceTest {
         auctionService.executeBid(auction.getId(), new AuctionBidForm(userC, 13000));
         auctionService.executeBid(auction.getId(), new AuctionBidForm(userB, 22000));
         assertThatThrownBy(() -> auctionService.executeBid(auction.getId(), new AuctionBidForm(user, 32000)))
-                .isInstanceOf(NoBidMyArt.class);
+                .isInstanceOf(CannotBidMyArtException.class);
 
         // then
         List<AuctionHistory> auctionListFromArtId = auctionHistoryService.getAuctionListFromArtId(auction.getId());
@@ -425,7 +422,7 @@ class AuctionServiceTest {
 
         // when
         assertThatThrownBy(() -> auctionService.executeBid(auction.getId(), new AuctionBidForm(userB, 9999)))
-                .isInstanceOf(MoreBidPrice.class);
+                .isInstanceOf(LessBidException.class);
 
         // then
         List<AuctionHistory> auctionListFromArtId = auctionHistoryService.getAuctionListFromArtId(auction.getId());
