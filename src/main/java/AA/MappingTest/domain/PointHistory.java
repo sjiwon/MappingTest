@@ -3,6 +3,7 @@ package AA.MappingTest.domain;
 import AA.MappingTest.enums.DealType;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,7 +19,7 @@ public class PointHistory {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "deal_type", nullable = false)
+    @Column(name = "deal_type", nullable = false, length = 8)
     private DealType dealType; // JOIN(신규가입 - 포인트내역 instance 생성 = default), CHARGE(충전), REFUND(환불), USE(사용)
 
     @Column(name = "deal_amount", nullable = false)
@@ -36,23 +37,23 @@ public class PointHistory {
     private Users user;
 
     @PrePersist
-    void init(){
+    void init(){ // default value가 존재하기 때문에 미리 persist
         this.dealType = (this.dealType == null ? DealType.JOIN : this.dealType);
         this.dealAmount = (this.dealAmount == null ? 0 : this.dealAmount);
         this.point = (this.point == null ? 0 : this.point);
     }
 
-    public PointHistory(Users user) { // 신규가입시 Instance Generate용도
+    public PointHistory(Users user) { // 신규가입시 Instance Generate 용도
         this.user = user;
     }
 
-    // 테스트용 생성자
-    public PointHistory(Users user, Integer point) {
+
+    public PointHistory(Users user, Integer point) { // 테스트용 생성자
         this.user = user;
         this.point = point;
     }
 
-    public PointHistory(DealType dealType, Integer dealAmount, Integer point, Users user) {
+    public PointHistory(DealType dealType, Integer dealAmount, Integer point, Users user) { // PointHistory Insert
         this.dealType = dealType;
         this.dealAmount = dealAmount;
         this.point = point;

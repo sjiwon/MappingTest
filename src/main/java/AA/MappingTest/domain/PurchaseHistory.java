@@ -25,11 +25,11 @@ public class PurchaseHistory {
     private LocalDateTime purchaseDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "purchase_category", nullable = false)
+    @Column(name = "purchase_category", nullable = false, length = 8)
     private PurchaseCategory purchaseCategory; // GENERAL(일반 판매를 통한 구매), AUCTION(경매를 통한 낙찰)
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private Users user;
 
     @OneToOne(fetch = FetchType.LAZY)

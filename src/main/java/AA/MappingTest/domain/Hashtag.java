@@ -16,7 +16,7 @@ public class Hashtag {
     @Column(name = "hashtag_id")
     private Long id;
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = true, length = 100)
     private String name;
 
     public Hashtag(String name) {

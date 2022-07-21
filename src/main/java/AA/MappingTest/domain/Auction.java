@@ -31,7 +31,7 @@ public class Auction {
     private Users user; // 경매에 참여하는 사람들 (최고가 Bid로 매번 update) & 처음 경매 등록할때는 NULL 허용
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "art_id", nullable = false, unique = true)
+    @JoinColumn(name = "art_id", nullable = false, unique = true, updatable = false)
     private Art art;
 
     @OneToMany(mappedBy = "auction")

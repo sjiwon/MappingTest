@@ -19,31 +19,31 @@ public class Art {
     @Column(name = "art_id")
     private Long id;
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = true, length = 100)
     private String name;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, length = 160)
     private String description;
 
     @Column(name = "init_price", nullable = false)
     private Integer initPrice;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "sale_type", nullable = false)
+    @Column(name = "sale_type", nullable = false, length = 8)
     private SaleType saleType; // GENERAL(일반 판매), AUCTION(경매를 통한 판매)
 
     @CreationTimestamp
     @Column(name = "register_date")
     private LocalDateTime registerDate;
 
-    @Column(name = "upload_name", nullable = false)
+    @Column(name = "upload_name", nullable = false, length = 100)
     private String uploadName;
 
-    @Column(name = "storage_name", nullable = false, unique = true)
+    @Column(name = "storage_name", nullable = false, unique = true, length = 40)
     private String storageName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", updatable = false)
     private Users user;
 
     @OneToMany(mappedBy = "art")
@@ -55,12 +55,12 @@ public class Art {
         user.getArtList().add(this);
     }
 
-    public Art(String name, String description, Integer initPrice, SaleType saleType, String uploadName, String storageName) {
+    public Art(String name, String description, Integer initPrice, SaleType saleType,
+               String uploadName, String storageName) {
         this.name = name;
         this.description = description;
         this.initPrice = initPrice;
         this.saleType = saleType;
-        this.registerDate = registerDate;
         this.uploadName = uploadName;
         this.storageName = storageName;
     }
@@ -77,16 +77,16 @@ public class Art {
 
     @Override
     public String toString() {
-        return "\nArt{" +
-                "\n\tid=" + id +
-                ", \n\tname='" + name + '\'' +
-                ", \n\tdescription='" + description + '\'' +
-                ", \n\tinitPrice=" + initPrice +
-                ", \n\tsaleType=" + saleType +
-                ", \n\tregisterDate=" + registerDate +
-                ", \n\tuploadName=" + uploadName +
-                ", \n\tstorageName='" + storageName + '\'' +
-                ", \n\tuser=" + user +
-                "\n}";
+        return "Art{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", initPrice=" + initPrice +
+                ", saleType=" + saleType +
+                ", registerDate=" + registerDate +
+                ", uploadName='" + uploadName + '\'' +
+                ", storageName='" + storageName + '\'' +
+                ", user=" + user +
+                '}';
     }
 }

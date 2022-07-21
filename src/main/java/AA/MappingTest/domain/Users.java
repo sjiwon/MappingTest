@@ -17,31 +17,31 @@ public class Users {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 30)
     private String name;
 
-    @Column(name = "nickname", nullable = false)
+    @Column(name = "nickname", nullable = false, length = 30)
     private String nickname;
 
-    @Column(name = "login_id", nullable = false, unique = true)
+    @Column(name = "login_id", nullable = false, unique = true, length = 30)
     private String loginId;
 
-    @Column(name = "login_password", nullable = false)
+    @Column(name = "login_password", nullable = false, length = 100)
     private String loginPassword;
 
-    @Column(name = "school_name", nullable = false)
+    @Column(name = "school_name", nullable = false, length = 35)
     private String schoolName;
 
-    @Column(name = "phone_number", nullable = false, unique = true)
+    @Column(name = "phone_number", nullable = false, unique = true, length = 11)
     private String phoneNumber;
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address", nullable = false, length = 200)
     private String address;
 
     @Column(name = "birth", nullable = false)
     private LocalDate birth;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     @OrderBy(value = "registerDate desc")
     private List<Art> artList = new ArrayList<>();
 

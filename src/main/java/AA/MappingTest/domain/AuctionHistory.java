@@ -19,19 +19,19 @@ public class AuctionHistory {
     private int bidPrice;
 
     @CreationTimestamp
-    @Column(name = "bid_date", nullable = false)
+    @Column(name = "bid_date")
     private LocalDateTime bidDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", updatable = false)
     private Users user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "art_id")
+    @JoinColumn(name = "art_id", updatable = false)
     private Art art;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "auction_id")
+    @JoinColumn(name = "auction_id", updatable = false)
     private Auction auction;
 
     public void addAuctionHistoryToUser(Users user){
