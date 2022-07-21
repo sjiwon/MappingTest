@@ -1,11 +1,9 @@
 package AA.MappingTest.service;
 
 import AA.MappingTest.domain.Art;
-import AA.MappingTest.domain.PointHistory;
 import AA.MappingTest.domain.Users;
 import AA.MappingTest.enums.SaleType;
-import AA.MappingTest.service.DTO.ArtEditForm;
-import lombok.RequiredArgsConstructor;
+import AA.MappingTest.service.DTO.ArtEditDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -192,11 +190,11 @@ class ArtServiceTest {
         artService.registerArt(artA);
 
         // when
-        ArtEditForm artEditForm = new ArtEditForm("작품 : 노래 / 가수 : 성시경");
-        artService.editArt(artA.getId(), artEditForm);
+        ArtEditDTO artEditDTO = new ArtEditDTO("작품 : 노래 / 가수 : 성시경");
+        artService.editArt(artA.getId(), artEditDTO);
 
         // then
-        assertThat(artA.getDescription()).isEqualTo(artEditForm.getDescription());
+        assertThat(artA.getDescription()).isEqualTo(artEditDTO.getDescription());
     }
 
     // 3. 작품 판매 타입 (경매/일반)

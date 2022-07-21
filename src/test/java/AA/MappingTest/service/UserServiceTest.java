@@ -5,8 +5,8 @@ import AA.MappingTest.domain.Users;
 import AA.MappingTest.enums.DealType;
 import AA.MappingTest.exception.NoMoneyException;
 import AA.MappingTest.repository.PointHistoryRepository;
-import AA.MappingTest.service.DTO.PointTransferForm;
-import AA.MappingTest.service.DTO.UserEditForm;
+import AA.MappingTest.service.DTO.PointTransferDTO;
+import AA.MappingTest.service.DTO.UserEditDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -116,15 +116,15 @@ class UserServiceTest {
 
         // 1. 닉네임만 변경
         log.info("=== 회원정보 수정 테스트 1) 닉네임만 변경 ===");
-        userService.editUser(joinUser.getId(), new UserEditForm("321서지원", "", ""));
+        userService.editUser(joinUser.getId(), new UserEditDTO("321서지원", "", ""));
 
         // 2. 닉네임 + 전화번호 변경
         log.info("=== 회원정보 수정 테스트 2) 닉네임 + 전화번호 변경 ===");
-        userService.editUser(joinUser.getId(), new UserEditForm("xxx321서지원xxx", "01098765432", ""));
+        userService.editUser(joinUser.getId(), new UserEditDTO("xxx321서지원xxx", "01098765432", ""));
 
         // 3. 닉네임 + 전화번호 + 주소 변경
         log.info("=== 회원정보 수정 테스트 3) 닉네임 + 전화번호 + 주소 변경 ===");
-        userService.editUser(joinUser.getId(), new UserEditForm("xxx서지원xxx", "01000001111", "안양"));
+        userService.editUser(joinUser.getId(), new UserEditDTO("xxx서지원xxx", "01000001111", "안양"));
 
         log.info("------------------ 회원정보 수정 테스트 종료 ------------------");
     }
@@ -269,7 +269,7 @@ class UserServiceTest {
         log.info("------------------ [user_id] 포인트 충전 테스트 시작 ------------------");
         int chargeAmout = 50000;
         
-        userService.pointTransfer(joinUser.getId(), new PointTransferForm(DealType.CHARGE, chargeAmout));
+        userService.pointTransfer(joinUser.getId(), new PointTransferDTO(DealType.CHARGE, chargeAmout));
 
         // then
         List<PointHistory> pointHistoryByUserId = pointHistoryRepository.findPointHistoryByUserId(joinUser.getId());
@@ -310,7 +310,7 @@ class UserServiceTest {
         log.info("------------------ [user_id] 포인트 환불 테스트 시작 ------------------");
         int refundAmount = 49999;
 
-        userService.pointTransfer(joinUser.getId(), new PointTransferForm(DealType.REFUND, refundAmount));
+        userService.pointTransfer(joinUser.getId(), new PointTransferDTO(DealType.REFUND, refundAmount));
 
         // then
         List<PointHistory> pointHistoryByUserId = pointHistoryRepository.findPointHistoryByUserId(joinUser.getId());
@@ -359,7 +359,7 @@ class UserServiceTest {
         log.info("------------------ [user_id] 포인트 환불 테스트 시작 ------------------");
         int refundAmount = 50001;
 
-        assertThatThrownBy(() -> userService.pointTransfer(joinUser.getId(), new PointTransferForm(DealType.REFUND, refundAmount)))
+        assertThatThrownBy(() -> userService.pointTransfer(joinUser.getId(), new PointTransferDTO(DealType.REFUND, refundAmount)))
                 .isInstanceOf(NoMoneyException.class);
 //        userService.pointTransfer(joinUser.getId(), new PointTransferForm(DealType.REFUND, refundAmount));
 
@@ -397,7 +397,7 @@ class UserServiceTest {
         log.info("------------------ [user_id] 포인트 사용 테스트 시작 ------------------");
         int useAmount = 30000;
 
-        userService.pointTransfer(joinUser.getId(), new PointTransferForm(DealType.USE, useAmount));
+        userService.pointTransfer(joinUser.getId(), new PointTransferDTO(DealType.USE, useAmount));
 
         // then
         List<PointHistory> pointHistoryByUserId = pointHistoryRepository.findPointHistoryByUserId(joinUser.getId());
@@ -446,7 +446,7 @@ class UserServiceTest {
         log.info("------------------ [user_id] 포인트 사용 테스트 시작 ------------------");
         int useAmount = 70000;
 
-        assertThatThrownBy(() -> userService.pointTransfer(joinUser.getId(), new PointTransferForm(DealType.REFUND, useAmount)))
+        assertThatThrownBy(() -> userService.pointTransfer(joinUser.getId(), new PointTransferDTO(DealType.REFUND, useAmount)))
                 .isInstanceOf(NoMoneyException.class);
 //        userService.pointTransfer(joinUser.getId(), new PointTransferForm(DealType.USE, useAmount));
 

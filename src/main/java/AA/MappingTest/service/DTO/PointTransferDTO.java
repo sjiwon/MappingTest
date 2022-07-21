@@ -1,5 +1,6 @@
 package AA.MappingTest.service.DTO;
 
+import AA.MappingTest.enums.DealType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,13 +10,16 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ArtEditForm {
-    private String description;
+public class PointTransferDTO {
+    private DealType dealType;
+
+    private Integer dealAmount;
 
     @Override
     public String toString() {
-        return "\nArtEditForm{" +
-                "\n\tdescription='" + description + '\'' +
+        return "\nPointTransferForm{" +
+                "\n\tdealType=" + dealType +
+                ", \n\tdealAmount=" + dealAmount +
                 "\n}";
     }
 }

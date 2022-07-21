@@ -2,7 +2,7 @@ package AA.MappingTest.service;
 
 import AA.MappingTest.domain.Art;
 import AA.MappingTest.repository.ArtRepository;
-import AA.MappingTest.service.DTO.ArtEditForm;
+import AA.MappingTest.service.DTO.ArtEditDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class ArtService {
 
     @Transactional
     // 작품 정보 수정(설명)
-    public void editArt(Long id, ArtEditForm editArt){
+    public void editArt(Long id, ArtEditDTO editArt){
         log.info("\n수정할 정보(설명) = {}", editArt);
 
         Art findArt = artRepository.findById(id).orElseThrow();

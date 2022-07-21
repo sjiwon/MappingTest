@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuctionHighestUserForm {
+public class AuctionHighestUserDTO {
     private Users user;
     private Integer price;
 

@@ -5,9 +5,8 @@ import AA.MappingTest.domain.Auction;
 import AA.MappingTest.domain.AuctionHistory;
 import AA.MappingTest.domain.Users;
 import AA.MappingTest.enums.SaleType;
-import AA.MappingTest.service.DTO.AuctionBidForm;
+import AA.MappingTest.service.DTO.AuctionBidDTO;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,18 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.EntityManager;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @SpringBootTest
@@ -132,11 +128,11 @@ class AuctionHistoryServiceTest {
         );
         userService.joinUser(userC);
 
-        auctionService.executeBid(auction.getId(), new AuctionBidForm(userB, 12000));
-        auctionService.executeBid(auction.getId(), new AuctionBidForm(userC, 13000));
-        auctionService.executeBid(auction.getId(), new AuctionBidForm(userB, 22000));
-        auctionService.executeBid(auction.getId(), new AuctionBidForm(userC, 32000));
-        auctionService.executeBid(auction.getId(), new AuctionBidForm(userB, 50000));
+        auctionService.executeBid(auction.getId(), new AuctionBidDTO(userB, 12000));
+        auctionService.executeBid(auction.getId(), new AuctionBidDTO(userC, 13000));
+        auctionService.executeBid(auction.getId(), new AuctionBidDTO(userB, 22000));
+        auctionService.executeBid(auction.getId(), new AuctionBidDTO(userC, 32000));
+        auctionService.executeBid(auction.getId(), new AuctionBidDTO(userB, 50000));
 
         // when
         List<AuctionHistory> auctionListFromUserA = auctionHistoryService.getAuctionListFromUserId(userA.getId());
@@ -248,14 +244,14 @@ class AuctionHistoryServiceTest {
         );
         userService.joinUser(userC);
 
-        auctionService.executeBid(auctionA.getId(), new AuctionBidForm(userB, 12000));
-        auctionService.executeBid(auctionA.getId(), new AuctionBidForm(userC, 13000));
-        auctionService.executeBid(auctionA.getId(), new AuctionBidForm(userB, 22000));
-        auctionService.executeBid(auctionA.getId(), new AuctionBidForm(userC, 32000));
-        auctionService.executeBid(auctionA.getId(), new AuctionBidForm(userB, 50000));
+        auctionService.executeBid(auctionA.getId(), new AuctionBidDTO(userB, 12000));
+        auctionService.executeBid(auctionA.getId(), new AuctionBidDTO(userC, 13000));
+        auctionService.executeBid(auctionA.getId(), new AuctionBidDTO(userB, 22000));
+        auctionService.executeBid(auctionA.getId(), new AuctionBidDTO(userC, 32000));
+        auctionService.executeBid(auctionA.getId(), new AuctionBidDTO(userB, 50000));
 
-        auctionService.executeBid(auctionB.getId(), new AuctionBidForm(userB, 30000));
-        auctionService.executeBid(auctionB.getId(), new AuctionBidForm(userC, 350000));
+        auctionService.executeBid(auctionB.getId(), new AuctionBidDTO(userB, 30000));
+        auctionService.executeBid(auctionB.getId(), new AuctionBidDTO(userC, 350000));
 
         // when
         List<AuctionHistory> auctionListFromArtA = auctionHistoryService.getAuctionListFromArtId(artA.getId());
@@ -338,11 +334,11 @@ class AuctionHistoryServiceTest {
         );
         userService.joinUser(userC);
 
-        auctionService.executeBid(auction.getId(), new AuctionBidForm(userB, 12000));
-        auctionService.executeBid(auction.getId(), new AuctionBidForm(userC, 13000));
-        auctionService.executeBid(auction.getId(), new AuctionBidForm(userB, 22000));
-        auctionService.executeBid(auction.getId(), new AuctionBidForm(userC, 32000));
-        auctionService.executeBid(auction.getId(), new AuctionBidForm(userB, 50000));
+        auctionService.executeBid(auction.getId(), new AuctionBidDTO(userB, 12000));
+        auctionService.executeBid(auction.getId(), new AuctionBidDTO(userC, 13000));
+        auctionService.executeBid(auction.getId(), new AuctionBidDTO(userB, 22000));
+        auctionService.executeBid(auction.getId(), new AuctionBidDTO(userC, 32000));
+        auctionService.executeBid(auction.getId(), new AuctionBidDTO(userB, 50000));
 
         // when
         List<AuctionHistory> auctionListFromAuction = auctionHistoryService.getAuctionListFromAuctionId(auction.getId());

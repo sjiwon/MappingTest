@@ -8,8 +8,8 @@ import AA.MappingTest.enums.SaleType;
 import AA.MappingTest.exception.LessBidException;
 import AA.MappingTest.exception.NoAuctionTypeException;
 import AA.MappingTest.exception.CannotBidMyArtException;
-import AA.MappingTest.service.DTO.AuctionBidForm;
-import AA.MappingTest.service.DTO.AuctionHighestUserForm;
+import AA.MappingTest.service.DTO.AuctionBidDTO;
+import AA.MappingTest.service.DTO.AuctionHighestUserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -259,11 +259,11 @@ class AuctionServiceTest {
 
 
         // when
-        auctionService.executeBid(auction.getId(), new AuctionBidForm(userB, 12000));
-        auctionService.executeBid(auction.getId(), new AuctionBidForm(userC, 13000));
-        auctionService.executeBid(auction.getId(), new AuctionBidForm(userB, 22000));
-        auctionService.executeBid(auction.getId(), new AuctionBidForm(userC, 32000));
-        auctionService.executeBid(auction.getId(), new AuctionBidForm(userB, 50000));
+        auctionService.executeBid(auction.getId(), new AuctionBidDTO(userB, 12000));
+        auctionService.executeBid(auction.getId(), new AuctionBidDTO(userC, 13000));
+        auctionService.executeBid(auction.getId(), new AuctionBidDTO(userB, 22000));
+        auctionService.executeBid(auction.getId(), new AuctionBidDTO(userC, 32000));
+        auctionService.executeBid(auction.getId(), new AuctionBidDTO(userB, 50000));
 
         // then
         List<AuctionHistory> auctionListFromArtId = auctionHistoryService.getAuctionListFromArtId(auction.getId());
@@ -272,7 +272,7 @@ class AuctionServiceTest {
         }
         assertThat(auctionListFromArtId.size()).isEqualTo(5);
 
-        AuctionHighestUserForm info = auctionService.getInfo(auction.getId());
+        AuctionHighestUserDTO info = auctionService.getInfo(auction.getId());
         assertThat(info.getUser()).isEqualTo(userB);
         assertThat(info.getPrice()).isEqualTo(50000);
     }
@@ -340,10 +340,10 @@ class AuctionServiceTest {
 
 
         // when
-        auctionService.executeBid(auction.getId(), new AuctionBidForm(userB, 12000));
-        auctionService.executeBid(auction.getId(), new AuctionBidForm(userC, 13000));
-        auctionService.executeBid(auction.getId(), new AuctionBidForm(userB, 22000));
-        assertThatThrownBy(() -> auctionService.executeBid(auction.getId(), new AuctionBidForm(user, 32000)))
+        auctionService.executeBid(auction.getId(), new AuctionBidDTO(userB, 12000));
+        auctionService.executeBid(auction.getId(), new AuctionBidDTO(userC, 13000));
+        auctionService.executeBid(auction.getId(), new AuctionBidDTO(userB, 22000));
+        assertThatThrownBy(() -> auctionService.executeBid(auction.getId(), new AuctionBidDTO(user, 32000)))
                 .isInstanceOf(CannotBidMyArtException.class);
 
         // then
@@ -353,7 +353,7 @@ class AuctionServiceTest {
         }
         assertThat(auctionListFromArtId.size()).isEqualTo(3);
 
-        AuctionHighestUserForm info = auctionService.getInfo(auction.getId());
+        AuctionHighestUserDTO info = auctionService.getInfo(auction.getId());
         assertThat(info.getUser()).isEqualTo(userB);
         assertThat(info.getPrice()).isEqualTo(22000);
     }
@@ -421,7 +421,7 @@ class AuctionServiceTest {
 
 
         // when
-        assertThatThrownBy(() -> auctionService.executeBid(auction.getId(), new AuctionBidForm(userB, 9999)))
+        assertThatThrownBy(() -> auctionService.executeBid(auction.getId(), new AuctionBidDTO(userB, 9999)))
                 .isInstanceOf(LessBidException.class);
 
         // then

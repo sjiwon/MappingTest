@@ -6,8 +6,8 @@ import AA.MappingTest.exception.NoMoneyException;
 import AA.MappingTest.exception.NoUserInfoException;
 import AA.MappingTest.repository.PointHistoryRepository;
 import AA.MappingTest.repository.UserRepository;
-import AA.MappingTest.service.DTO.PointTransferForm;
-import AA.MappingTest.service.DTO.UserEditForm;
+import AA.MappingTest.service.DTO.PointTransferDTO;
+import AA.MappingTest.service.DTO.UserEditDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -49,7 +49,7 @@ public class UserService {
 
     @Transactional
     // 2. 회원 정보 수정
-    public void editUser(Long id, UserEditForm editUser){
+    public void editUser(Long id, UserEditDTO editUser){
         log.info("\n수정할 User 정보 = {}", editUser);
 
         Users findUser = userRepository.findById(id).orElseThrow();
@@ -93,7 +93,7 @@ public class UserService {
 
     // 6. 포인트 거래 (충전/환불/사용)
     @Transactional
-    public void pointTransfer(Long id, PointTransferForm transferForm){
+    public void pointTransfer(Long id, PointTransferDTO transferForm){
         Users findUser = userRepository.findById(id).orElse(null);
         log.info("\n포인트 거래할 회원 정보 = {}", findUser);
 

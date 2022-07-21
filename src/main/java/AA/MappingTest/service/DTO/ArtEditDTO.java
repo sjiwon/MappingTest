@@ -1,22 +1,21 @@
 package AA.MappingTest.service.DTO;
 
-import AA.MappingTest.domain.Users;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuctionBidForm {
-    private Users user;
-    private Integer bidPrice;
+public class ArtEditDTO {
+    private String description;
 
     @Override
     public String toString() {
-        return "\nAuctionBidForm{" +
-                "\n\tuser=" + user +
-                ", \n\tbidPrice=" + bidPrice +
+        return "\nArtEditForm{" +
+                "\n\tdescription='" + description + '\'' +
                 "\n}";
     }
 }

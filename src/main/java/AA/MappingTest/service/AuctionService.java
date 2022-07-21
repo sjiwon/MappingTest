@@ -10,8 +10,8 @@ import AA.MappingTest.exception.NoAuctionTypeException;
 import AA.MappingTest.exception.CannotBidMyArtException;
 import AA.MappingTest.repository.AuctionHistoryRepository;
 import AA.MappingTest.repository.AuctionRepository;
-import AA.MappingTest.service.DTO.AuctionBidForm;
-import AA.MappingTest.service.DTO.AuctionHighestUserForm;
+import AA.MappingTest.service.DTO.AuctionBidDTO;
+import AA.MappingTest.service.DTO.AuctionHighestUserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -68,15 +68,15 @@ public class AuctionService {
     }
 
     // 4. 현재 경매 최고가 User의 정보 & Bid 금액
-    public AuctionHighestUserForm getInfo(Long id){
-        AuctionHighestUserForm highestUserByAuctionId = auctionRepository.findHighestUserByAuctionId(id);
+    public AuctionHighestUserDTO getInfo(Long id){
+        AuctionHighestUserDTO highestUserByAuctionId = auctionRepository.findHighestUserByAuctionId(id);
         log.info("\n현재 경매 최고가 비드 User 정보 = {}", highestUserByAuctionId);
 
         return highestUserByAuctionId;
     }
     
     // 5. 실시간 경매 진행
-    public void executeBid(Long id, AuctionBidForm auctionBid){
+    public void executeBid(Long id, AuctionBidDTO auctionBid){
         log.info("\n새로운 비드 정보 = {}", auctionBid);
 
         Auction findAuction = auctionRepository.findById(id).orElseThrow();
