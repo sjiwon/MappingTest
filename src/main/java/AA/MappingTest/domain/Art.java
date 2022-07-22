@@ -43,7 +43,7 @@ public class Art {
     private String storageName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", updatable = false)
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private Users user;
 
     @OneToMany(mappedBy = "art")

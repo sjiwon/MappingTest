@@ -3,7 +3,6 @@ package AA.MappingTest.domain;
 import AA.MappingTest.enums.DealType;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
