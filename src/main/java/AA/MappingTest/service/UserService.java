@@ -1,7 +1,7 @@
 package AA.MappingTest.service;
 
 import AA.MappingTest.domain.*;
-import AA.MappingTest.enums.DealType;
+import AA.MappingTest.domain.enums.DealType;
 import AA.MappingTest.exception.NoMoneyException;
 import AA.MappingTest.exception.NoUserInfoException;
 import AA.MappingTest.repository.PointHistoryRepository;

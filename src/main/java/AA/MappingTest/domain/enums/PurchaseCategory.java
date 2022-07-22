@@ -1,4 +1,4 @@
-package AA.MappingTest.enums;
+package AA.MappingTest.domain.enums;
 
 public enum PurchaseCategory {
     GENERAL, AUCTION;

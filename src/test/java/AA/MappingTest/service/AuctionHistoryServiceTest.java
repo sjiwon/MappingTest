@@ -4,7 +4,7 @@ import AA.MappingTest.domain.Art;
 import AA.MappingTest.domain.Auction;
 import AA.MappingTest.domain.AuctionHistory;
 import AA.MappingTest.domain.Users;
-import AA.MappingTest.enums.SaleType;
+import AA.MappingTest.domain.enums.SaleType;
 import AA.MappingTest.service.DTO.AuctionBidDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;

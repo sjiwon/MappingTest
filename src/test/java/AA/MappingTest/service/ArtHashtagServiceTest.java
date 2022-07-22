@@ -4,7 +4,7 @@ import AA.MappingTest.domain.Art;
 import AA.MappingTest.domain.ArtHashtag;
 import AA.MappingTest.domain.Hashtag;
 import AA.MappingTest.domain.Users;
-import AA.MappingTest.enums.SaleType;
+import AA.MappingTest.domain.enums.SaleType;
 import AA.MappingTest.repository.ArtHashtagRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,8 +12,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;

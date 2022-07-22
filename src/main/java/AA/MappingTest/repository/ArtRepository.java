@@ -1,7 +1,7 @@
 package AA.MappingTest.repository;
 
 import AA.MappingTest.domain.Art;
-import AA.MappingTest.enums.SaleType;
+import AA.MappingTest.domain.enums.SaleType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

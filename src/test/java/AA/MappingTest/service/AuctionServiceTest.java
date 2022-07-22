@@ -4,7 +4,7 @@ import AA.MappingTest.domain.Art;
 import AA.MappingTest.domain.Auction;
 import AA.MappingTest.domain.AuctionHistory;
 import AA.MappingTest.domain.Users;
-import AA.MappingTest.enums.SaleType;
+import AA.MappingTest.domain.enums.SaleType;
 import AA.MappingTest.exception.LessBidException;
 import AA.MappingTest.exception.NoAuctionTypeException;
 import AA.MappingTest.exception.CannotBidMyArtException;

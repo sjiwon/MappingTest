@@ -1,6 +1,6 @@
 package AA.MappingTest.domain;
 
-import AA.MappingTest.enums.DealType;
+import AA.MappingTest.domain.enums.DealType;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 

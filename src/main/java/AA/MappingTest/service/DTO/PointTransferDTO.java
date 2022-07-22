@@ -1,6 +1,6 @@
 package AA.MappingTest.service.DTO;
 
-import AA.MappingTest.enums.DealType;
+import AA.MappingTest.domain.enums.DealType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

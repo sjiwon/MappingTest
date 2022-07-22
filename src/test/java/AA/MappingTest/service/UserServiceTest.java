@@ -2,7 +2,7 @@ package AA.MappingTest.service;
 
 import AA.MappingTest.domain.PointHistory;
 import AA.MappingTest.domain.Users;
-import AA.MappingTest.enums.DealType;
+import AA.MappingTest.domain.enums.DealType;
 import AA.MappingTest.exception.NoMoneyException;
 import AA.MappingTest.repository.PointHistoryRepository;
 import AA.MappingTest.service.DTO.PointTransferDTO;
