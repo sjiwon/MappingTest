@@ -35,28 +35,34 @@ public class PointHistory {
     @JoinColumn(name = "user_id", nullable = false)
     private Users user;
 
-    @PrePersist
-    void init(){ // default value가 존재하기 때문에 미리 persist
-        this.dealType = (this.dealType == null ? DealType.JOIN : this.dealType);
-        this.dealAmount = (this.dealAmount == null ? 0 : this.dealAmount);
-        this.point = (this.point == null ? 0 : this.point);
+    // 생성 메소드 1 - 신규가입시 Instance Generate 용도 //
+    public static PointHistory createPointHistory(Users user) {
+        PointHistory pointHistory = new PointHistory();
+        pointHistory.dealType = DealType.JOIN;
+        pointHistory.dealAmount = 0;
+        pointHistory.point = 0;
+        pointHistory.user = user;
+        return pointHistory;
     }
 
-    public PointHistory(Users user) { // 신규가입시 Instance Generate 용도
-        this.user = user;
+    // 생성 메소드 2 - 포인트 내역 누적 //
+    public static PointHistory insertPointHistory(DealType dealType, Integer dealAmount, Integer point, Users user) {
+        PointHistory pointHistory = new PointHistory();
+        pointHistory.dealType = dealType;
+        pointHistory.dealAmount = dealAmount;
+        pointHistory.point = point;
+        pointHistory.user = user;
+        return pointHistory;
     }
 
-
-    public PointHistory(Users user, Integer point) { // 테스트용 생성자
-        this.user = user;
-        this.point = point;
-    }
-
-    public PointHistory(DealType dealType, Integer dealAmount, Integer point, Users user) { // PointHistory Insert
-        this.dealType = dealType;
-        this.dealAmount = dealAmount;
-        this.point = point;
-        this.user = user;
+    // 생성 메소드 3 - 테스트용 생성자 (6번 테스트) //
+    public static PointHistory testPointHistory(Users user, Integer point) { // 테스트용 생성자
+        PointHistory pointHistory = new PointHistory();
+        pointHistory.dealType = DealType.JOIN;
+        pointHistory.dealAmount = 0;
+        pointHistory.point = point;
+        pointHistory.user = user;
+        return pointHistory;
     }
 
     @Override

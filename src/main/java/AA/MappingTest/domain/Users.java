@@ -41,31 +41,23 @@ public class Users {
     @Column(name = "birth", nullable = false)
     private LocalDate birth;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // auto persist
     @OrderBy(value = "registerDate desc")
     private List<Art> artList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
-    @OrderBy(value = "bidDate desc")
-    private List<AuctionHistory> auctionHistoryList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    @OrderBy(value = "purchaseDate desc")
-    private List<PurchaseHistory> purchaseHistoryList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    private List<LikeArt> likeArtList = new ArrayList<>();
-
-    public Users(String name, String nickname, String loginId, String loginPassword,
+    // 생성 메소드 //
+    public static Users createUser(String name, String nickname, String loginId, String loginPassword,
                  String schoolName, String phoneNumber, String address, LocalDate birth) {
-        this.name = name;
-        this.nickname = nickname;
-        this.loginId = loginId;
-        this.loginPassword = loginPassword;
-        this.schoolName = schoolName;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.birth = birth;
+        Users user = new Users();
+        user.name = name;
+        user.nickname = nickname;
+        user.loginId = loginId;
+        user.loginPassword = loginPassword;
+        user.schoolName = schoolName;
+        user.phoneNumber = phoneNumber;
+        user.address = address;
+        user.birth = birth;
+        return user;
     }
 
     public void changeNickname(String nickname){

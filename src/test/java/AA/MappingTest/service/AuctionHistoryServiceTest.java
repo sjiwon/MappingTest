@@ -71,7 +71,7 @@ class AuctionHistoryServiceTest {
     @DisplayName("[user_id]가 참여한 경매 목록")
     void test1(){
         // given
-        Users userA = new Users(
+        Users userA = Users.createUser(
                 "서지원",
                 "Seo Ji Won",
                 "sjiwon",
@@ -85,7 +85,8 @@ class AuctionHistoryServiceTest {
 
         String storageNameArtA = UUID.randomUUID().toString().replaceAll("-", "");
         System.out.println("서버에 저장되는 Art 이름 = " + storageNameArtA);
-        Art art = new Art(
+        Art art = Art.createArt(
+                userA,
                 "너의 모든 순간",
                 "이 노래는 성시경이 불렀습니다",
                 10000,
@@ -93,18 +94,16 @@ class AuctionHistoryServiceTest {
                 "art-UploadName",
                 storageNameArtA
         );
-        art.addUser(userA);
         artService.registerArt(art);
 
         Auction auction = auctionService.registerAuction(
-                userA,
                 art,
                 LocalDateTime.of(2022, 7, 7, 13, 0),
                 LocalDateTime.of(2022, 7, 8, 13, 0)
         );
 
         // 경매에 비드할 2명의 사용자
-        Users userB = new Users(
+        Users userB = Users.createUser(
                 "서지원2",
                 "Seo Ji Won2",
                 "sjiwon2",
@@ -116,7 +115,7 @@ class AuctionHistoryServiceTest {
         );
         userService.joinUser(userB);
 
-        Users userC = new Users(
+        Users userC = Users.createUser(
                 "서지원3",
                 "Seo Ji Won3",
                 "sjiwon3",
@@ -167,7 +166,7 @@ class AuctionHistoryServiceTest {
     @DisplayName("[art_id]의 경매내역 조회")
     void test2(){
 // given
-        Users userA = new Users(
+        Users userA = Users.createUser(
                 "서지원",
                 "Seo Ji Won",
                 "sjiwon",
@@ -181,7 +180,8 @@ class AuctionHistoryServiceTest {
 
         String storageNameArtA = UUID.randomUUID().toString().replaceAll("-", "");
         System.out.println("서버에 저장되는 Art 이름 = " + storageNameArtA);
-        Art artA = new Art(
+        Art artA = Art.createArt(
+                userA,
                 "너의 모든 순간",
                 "이 노래는 성시경이 불렀습니다",
                 10000,
@@ -189,12 +189,12 @@ class AuctionHistoryServiceTest {
                 "artA-UploadName",
                 storageNameArtA
         );
-        artA.addUser(userA);
         artService.registerArt(artA);
 
         String storageNameArtB = UUID.randomUUID().toString().replaceAll("-", "");
         System.out.println("서버에 저장되는 Art 이름 = " + storageNameArtB);
-        Art artB = new Art(
+        Art artB = Art.createArt(
+                userA,
                 "희재",
                 "이 노래는 성시경이 불렀습니다",
                 100500,
@@ -202,25 +202,22 @@ class AuctionHistoryServiceTest {
                 "artB-UploadName",
                 storageNameArtB
         );
-        artB.addUser(userA);
         artService.registerArt(artB);
 
         Auction auctionA = auctionService.registerAuction(
-                userA,
                 artA,
                 LocalDateTime.of(2022, 7, 7, 13, 0),
                 LocalDateTime.of(2022, 7, 8, 13, 0)
         );
 
         Auction auctionB = auctionService.registerAuction(
-                userA,
                 artB,
                 LocalDateTime.of(2022, 7, 7, 13, 0),
                 LocalDateTime.of(2022, 7, 8, 13, 0)
         );
 
         // 경매에 비드할 2명의 사용자
-        Users userB = new Users(
+        Users userB = Users.createUser(
                 "서지원2",
                 "Seo Ji Won2",
                 "sjiwon2",
@@ -232,7 +229,7 @@ class AuctionHistoryServiceTest {
         );
         userService.joinUser(userB);
 
-        Users userC = new Users(
+        Users userC = Users.createUser(
                 "서지원3",
                 "Seo Ji Won3",
                 "sjiwon3",
@@ -250,7 +247,7 @@ class AuctionHistoryServiceTest {
         auctionService.executeBid(auctionA.getId(), new AuctionBidDTO(userC, 32000));
         auctionService.executeBid(auctionA.getId(), new AuctionBidDTO(userB, 50000));
 
-        auctionService.executeBid(auctionB.getId(), new AuctionBidDTO(userB, 30000));
+        auctionService.executeBid(auctionB.getId(), new AuctionBidDTO(userB, 100500));
         auctionService.executeBid(auctionB.getId(), new AuctionBidDTO(userC, 350000));
 
         // when
@@ -277,7 +274,7 @@ class AuctionHistoryServiceTest {
     @DisplayName("[auction_id]의 bid 내역")
     void test3(){
         // given
-        Users userA = new Users(
+        Users userA = Users.createUser(
                 "서지원",
                 "Seo Ji Won",
                 "sjiwon",
@@ -291,7 +288,8 @@ class AuctionHistoryServiceTest {
 
         String storageNameArtA = UUID.randomUUID().toString().replaceAll("-", "");
         System.out.println("서버에 저장되는 Art 이름 = " + storageNameArtA);
-        Art art = new Art(
+        Art art = Art.createArt(
+                userA,
                 "너의 모든 순간",
                 "이 노래는 성시경이 불렀습니다",
                 10000,
@@ -299,18 +297,16 @@ class AuctionHistoryServiceTest {
                 "art-UploadName",
                 storageNameArtA
         );
-        art.addUser(userA);
         artService.registerArt(art);
 
         Auction auction = auctionService.registerAuction(
-                userA,
                 art,
                 LocalDateTime.of(2022, 7, 7, 13, 0),
                 LocalDateTime.of(2022, 7, 8, 13, 0)
         );
 
         // 경매에 비드할 2명의 사용자
-        Users userB = new Users(
+        Users userB = Users.createUser(
                 "서지원2",
                 "Seo Ji Won2",
                 "sjiwon2",
@@ -322,7 +318,7 @@ class AuctionHistoryServiceTest {
         );
         userService.joinUser(userB);
 
-        Users userC = new Users(
+        Users userC = Users.createUser(
                 "서지원3",
                 "Seo Ji Won3",
                 "sjiwon3",

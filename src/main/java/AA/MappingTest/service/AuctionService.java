@@ -30,18 +30,12 @@ public class AuctionService {
 
     // 1. 경매 등록
     @Transactional
-    public Auction registerAuction(Users user, Art art, LocalDateTime start, LocalDateTime end){
+    public Auction registerAuction(Art art, LocalDateTime start, LocalDateTime end){
         if(art.getSaleType() == SaleType.GENERAL){
             throw new NoAuctionTypeException("등록할 때 경매로 등록하지 않았으므로 경매에 등록할 수 없습니다");
         }
         else {
-            Auction saveAuction = new Auction(
-                    10000,
-                    start,
-                    end,
-                    user,
-                    art
-            );
+            Auction saveAuction = Auction.createAuction(art.getInitPrice(), start, end, art);
             log.info("\n등록할 경매 = {}", saveAuction);
 
             auctionRepository.save(saveAuction);
@@ -86,7 +80,7 @@ public class AuctionService {
             throw new CannotBidMyArtException("본인 작품에는 경매 비드를 할 수 없습니다");
         }
         else {
-            if(auctionBid.getBidPrice() <= findAuction.getBidPrice()){
+            if(auctionBid.getBidPrice() < findAuction.getBidPrice()){
                 throw new LessBidException("현재 경매가보다 높게 비드해주세요");
             }
             else {
@@ -94,11 +88,12 @@ public class AuctionService {
                 log.info("\n경매에 대한 update bid 정보 = {}", findAuction);
 
                 // AuctionHistory에 추가
-                AuctionHistory auctionHistory = new AuctionHistory(auctionBid.getBidPrice());
-                auctionHistory.addAuctionHistoryToUser(auctionBid.getUser());
-                auctionHistory.addAuctionHistoryToArt(findAuction.getArt());
-                auctionHistory.addAuctionHistoryToAuction(findAuction);
-
+                AuctionHistory auctionHistory = AuctionHistory.createAuctionHistory(
+                        findAuction,
+                        findAuction.getArt(),
+                        auctionBid.getUser(),
+                        auctionBid.getBidPrice()
+                );
                 auctionHistoryRepository.save(auctionHistory);
 
                 log.info("\n추가된 AuctionHistory = {}", auctionHistory);

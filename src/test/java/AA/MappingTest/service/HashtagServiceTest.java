@@ -51,9 +51,9 @@ class HashtagServiceTest {
     @DisplayName("해시태그 등록")
     void test1(){
         // given
-        Hashtag hashTag1 = new Hashtag("HashtagA");
-        Hashtag hashTag2 = new Hashtag("HashtagB");
-        Hashtag hashTag3 = new Hashtag("HashtagC");
+        Hashtag hashTag1 = Hashtag.createHashtag("HashtagA");
+        Hashtag hashTag2 = Hashtag.createHashtag("HashtagB");
+        Hashtag hashTag3 = Hashtag.createHashtag("HashtagC");
 
 
         // when
@@ -72,9 +72,9 @@ class HashtagServiceTest {
     @DisplayName("[hashtag_id]로 해시태그 검색")
     void test2(){
         // given
-        Hashtag hashTag1 = new Hashtag("HashtagA");
-        Hashtag hashTag2 = new Hashtag("HashtagB");
-        Hashtag hashTag3 = new Hashtag("HashtagC");
+        Hashtag hashTag1 = Hashtag.createHashtag("HashtagA");
+        Hashtag hashTag2 = Hashtag.createHashtag("HashtagB");
+        Hashtag hashTag3 = Hashtag.createHashtag("HashtagC");
 
         hashtagService.registerHashTag(hashTag1);
         hashtagService.registerHashTag(hashTag2);

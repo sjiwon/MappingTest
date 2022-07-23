@@ -1,19 +1,18 @@
 package AA.MappingTest.service.DTO;
 
 import AA.MappingTest.domain.enums.DealType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class PointTransferDTO {
     private DealType dealType;
 
     private Integer dealAmount;
+
+
 
     @Override
     public String toString() {

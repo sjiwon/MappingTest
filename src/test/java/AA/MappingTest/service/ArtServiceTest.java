@@ -59,7 +59,7 @@ class ArtServiceTest {
     @DisplayName("작품 등록")
     void test1() {
         // given
-        Users userA = new Users(
+        Users userA = Users.createUser(
                 "서지원",
                 "서지원123",
                 "sjiwon",
@@ -70,7 +70,7 @@ class ArtServiceTest {
                 LocalDate.of(2000, 1, 18)
         );
 
-        Users userB = new Users(
+        Users userB = Users.createUser(
                 "서지원2",
                 "서지원123456",
                 "sjiwon1234",
@@ -86,7 +86,8 @@ class ArtServiceTest {
 
         String serverFileNameArtA = UUID.randomUUID().toString().replaceAll("-", "");
         log.info("\nArtA가 서버에 저장되는 이름(UUID) = {}", serverFileNameArtA);
-        Art artA = new Art(
+        Art artA = Art.createArt(
+                userA,
                 "너의 모든 순간",
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 15000,
@@ -94,11 +95,11 @@ class ArtServiceTest {
                 "artA-UploadName",
                 serverFileNameArtA
         );
-        artA.addUser(userA);
 
         String serverFileNameArtB = UUID.randomUUID().toString().replaceAll("-", "");
         log.info("\nArtB가 서버에 저장되는 이름(UUID) = {}", serverFileNameArtB);
-        Art artB = new Art(
+        Art artB = Art.createArt(
+                userA,
                 "희재",
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 30000,
@@ -106,11 +107,11 @@ class ArtServiceTest {
                 "artB-UploadName",
                 serverFileNameArtB
         );
-        artB.addUser(userA);
 
         String serverFileNameArtC = UUID.randomUUID().toString().replaceAll("-", "");
         log.info("\nArtC가 서버에 저장되는 이름(UUID) = {}", serverFileNameArtC);
-        Art artC = new Art(
+        Art artC = Art.createArt(
+                userA,
                 "안녕 나의 사랑",
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 18000,
@@ -118,11 +119,11 @@ class ArtServiceTest {
                 "artC-UploadName",
                 serverFileNameArtC
         );
-        artC.addUser(userA);
 
         String serverFileNameArtD = UUID.randomUUID().toString().replaceAll("-", "");
         log.info("\nArtD가 서버에 저장되는 이름(UUID) = {}", serverFileNameArtD);
-        Art artD = new Art(
+        Art artD = Art.createArt(
+                userB,
                 "어디에도",
                 "이 작품은 사실 노래이고 엠씨더맥스가 부른 노래입니다...........",
                 45000,
@@ -130,11 +131,11 @@ class ArtServiceTest {
                 "artD-UploadName",
                 serverFileNameArtD
         );
-        artD.addUser(userB);
 
         String serverFileNameArtE = UUID.randomUUID().toString().replaceAll("-", "");
         log.info("\nArtE가 서버에 저장되는 이름(UUID) = {}", serverFileNameArtE);
-        Art artE = new Art(
+        Art artE = Art.createArt(
+                userB,
                 "Returns",
                 "이 작품은 사실 노래이고 엠씨더맥스가 부른 노래입니다...........",
                 35000,
@@ -142,7 +143,6 @@ class ArtServiceTest {
                 "artE-UploadName",
                 serverFileNameArtE
         );
-        artE.addUser(userB);
 
         // when
         Art registerArtA = artService.registerArt(artA);
@@ -164,7 +164,7 @@ class ArtServiceTest {
     @DisplayName("작품 정보 수정")
     void test2() {
         // given
-        Users userA = new Users(
+        Users userA = Users.createUser(
                 "서지원",
                 "Seo Ji Won",
                 "sjiwon",
@@ -178,7 +178,8 @@ class ArtServiceTest {
 
         String serverFileNameArtA = UUID.randomUUID().toString().replaceAll("-", "");
         log.info("\nArtA가 서버에 저장되는 이름(UUID) = {}", serverFileNameArtA);
-        Art artA = new Art(
+        Art artA = Art.createArt(
+                userA,
                 "너의 모든 순간",
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 15000,
@@ -186,7 +187,6 @@ class ArtServiceTest {
                 "artA-UploadName",
                 serverFileNameArtA
         );
-        artA.addUser(userA);
         artService.registerArt(artA);
 
         // when
@@ -202,7 +202,7 @@ class ArtServiceTest {
     @DisplayName("작품 판매 타입(경매/일반)")
     void test3() {
         // given
-        Users userA = new Users(
+        Users userA = Users.createUser(
                 "서지원",
                 "Seo Ji Won",
                 "sjiwon",
@@ -216,7 +216,8 @@ class ArtServiceTest {
 
         String serverFileNameArtA = UUID.randomUUID().toString().replaceAll("-", "");
         log.info("\nArtA가 서버에 저장되는 이름(UUID) = {}", serverFileNameArtA);
-        Art artA = new Art(
+        Art artA = Art.createArt(
+                userA,
                 "너의 모든 순간",
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 15000,
@@ -225,12 +226,12 @@ class ArtServiceTest {
                 serverFileNameArtA
 
         );
-        artA.addUser(userA);
         artService.registerArt(artA);
 
         String serverFileNameArtB = UUID.randomUUID().toString().replaceAll("-", "");
         log.info("\nArtB가 서버에 저장되는 이름(UUID) = {}", serverFileNameArtB);
-        Art artB = new Art(
+        Art artB = Art.createArt(
+                userA,
                 "희재",
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 30000,
@@ -238,7 +239,6 @@ class ArtServiceTest {
                 "artB-UploadName",
                 serverFileNameArtB
         );
-        artB.addUser(userA);
         artService.registerArt(artB);
 
         // when
@@ -255,7 +255,7 @@ class ArtServiceTest {
     @DisplayName("[user_id]의 작품 리스트 조회")
     void test4(){
         // given
-        Users userA = new Users(
+        Users userA = Users.createUser(
                 "서지원",
                 "Seo Ji Won",
                 "sjiwon",
@@ -269,7 +269,8 @@ class ArtServiceTest {
 
         String serverFileNameArtA = UUID.randomUUID().toString().replaceAll("-", "");
         log.info("\nArtA가 서버에 저장되는 이름(UUID) = {}", serverFileNameArtA);
-        Art artA = new Art(
+        Art artA = Art.createArt(
+                userA,
                 "너의 모든 순간",
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 15000,
@@ -277,12 +278,12 @@ class ArtServiceTest {
                 "artA-UploadName",
                 serverFileNameArtA
         );
-        artA.addUser(userA);
         artService.registerArt(artA);
 
         String serverFileNameArtB = UUID.randomUUID().toString().replaceAll("-", "");
         log.info("\nArtB가 서버에 저장되는 이름(UUID) = {}", serverFileNameArtB);
-        Art artB = new Art(
+        Art artB = Art.createArt(
+                userA,
                 "희재",
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 30000,
@@ -290,12 +291,12 @@ class ArtServiceTest {
                 "artB-UploadName",
                 serverFileNameArtB
         );
-        artB.addUser(userA);
         artService.registerArt(artB);
 
         String serverFileNameArtC = UUID.randomUUID().toString().replaceAll("-", "");
         log.info("\nArtC가 서버에 저장되는 이름(UUID) = {}", serverFileNameArtC);
-        Art artC = new Art(
+        Art artC = Art.createArt(
+                userA,
                 "안녕 나의 사랑",
                 "이 작품은 사실 노래이고 성시경이 부른 노래입니다...........",
                 18000,
@@ -303,12 +304,12 @@ class ArtServiceTest {
                 "artC-UploadName",
                 serverFileNameArtC
         );
-        artC.addUser(userA);
         artService.registerArt(artC);
 
         String serverFileNameArtD = UUID.randomUUID().toString().replaceAll("-", "");
         log.info("\nArtD가 서버에 저장되는 이름(UUID) = {}", serverFileNameArtD);
-        Art artD = new Art(
+        Art artD = Art.createArt(
+                userA,
                 "어디에도",
                 "이 작품은 사실 노래이고 엠씨더맥스가 부른 노래입니다...........",
                 45000,
@@ -316,7 +317,6 @@ class ArtServiceTest {
                 "artD-UploadName",
                 serverFileNameArtD
         );
-        artD.addUser(userA);
         artService.registerArt(artD);
 
         // when

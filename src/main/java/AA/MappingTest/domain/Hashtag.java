@@ -19,8 +19,11 @@ public class Hashtag {
     @Column(name = "name", nullable = false, unique = true, length = 100)
     private String name;
 
-    public Hashtag(String name) {
-        this.name = name;
+    // 생성 메소드 //
+    public static Hashtag createHashtag(String name) {
+        Hashtag hashtag = new Hashtag();
+        hashtag.name = name;
+        return hashtag;
     }
 
     public void changeHashtagName(String name){

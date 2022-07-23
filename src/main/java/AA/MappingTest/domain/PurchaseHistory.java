@@ -40,14 +40,26 @@ public class PurchaseHistory {
     @JoinColumn(name = "auction_id", unique = true)
     private Auction auction;
 
-    public void addPurchaseHistoryToUser(Users user){
-        this.user = user;
-        user.getPurchaseHistoryList().add(this);
+
+    // 생성 메소드 1 - 일반 구매 내역 //
+    public static PurchaseHistory createPurchaseHistoryByGeneral(Users user, Art art, Integer price) {
+        PurchaseHistory purchaseHistory = new PurchaseHistory();
+        purchaseHistory.user = user;
+        purchaseHistory.art = art;
+        purchaseHistory.price = price;
+        purchaseHistory.purchaseCategory = PurchaseCategory.GENERAL;
+        return purchaseHistory;
     }
 
-    public PurchaseHistory(Integer price, PurchaseCategory purchaseCategory) {
-        this.price = price;
-        this.purchaseCategory = purchaseCategory;
+    // 생성 메소드 2 - 경매 낙찰 내역 //
+    public static PurchaseHistory createPurchaseHistoryByAuction(Users user, Art art, Auction auction, Integer price) {
+        PurchaseHistory purchaseHistory = new PurchaseHistory();
+        purchaseHistory.user = user;
+        purchaseHistory.art = art;
+        purchaseHistory.auction = auction;
+        purchaseHistory.price = price;
+        purchaseHistory.purchaseCategory = PurchaseCategory.AUCTION;
+        return purchaseHistory;
     }
 
     @Override

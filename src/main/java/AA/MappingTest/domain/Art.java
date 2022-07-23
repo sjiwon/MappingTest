@@ -46,23 +46,34 @@ public class Art {
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private Users user;
 
-    @OneToMany(mappedBy = "art")
-    @OrderBy(value = "bidDate desc")
-    private List<AuctionHistory> auctionHistoryList = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "art_hashtag",
+            joinColumns = @JoinColumn(name = "art_id"),
+            inverseJoinColumns = @JoinColumn(name = "hashtag_id")
+    )
+    private List<Hashtag> artHashtagList = new ArrayList<>(); // N:M
 
-    public void addUser(Users user){
+    public void setUser(Users user){
         this.user = user;
         user.getArtList().add(this);
     }
 
-    public Art(String name, String description, Integer initPrice, SaleType saleType,
-               String uploadName, String storageName) {
-        this.name = name;
-        this.description = description;
-        this.initPrice = initPrice;
-        this.saleType = saleType;
-        this.uploadName = uploadName;
-        this.storageName = storageName;
+    // 생성 메소드 //
+    public static Art createArt(Users user, String name, String description, Integer initPrice, SaleType saleType,
+               String uploadName, String storageName, Hashtag... hashtags) {
+        Art art = new Art();
+        art.setUser(user);
+        art.name = name;
+        art.description = description;
+        art.initPrice = initPrice;
+        art.saleType = saleType;
+        art.uploadName = uploadName;
+        art.storageName = storageName;
+        for (Hashtag hashtag : hashtags) {
+            art.getArtHashtagList().add(hashtag);
+        }
+        return art;
     }
 
     // 작품 이름 수정

@@ -64,7 +64,7 @@ class UserServiceTest {
         log.info("------------------ 회원가입 테스트 시작 ------------------");
 
         // given
-        Users userA = new Users(
+        Users userA = Users.createUser(
                 "서지원",
                 "서지원123",
                 "sjiwon",
@@ -75,7 +75,7 @@ class UserServiceTest {
                 LocalDate.of(2000, 1, 18)
         );
 
-        Users userB = new Users(
+        Users userB = Users.createUser(
                 "서지원2",
                 "서지원123456",
                 "sjiwon1234",
@@ -100,7 +100,7 @@ class UserServiceTest {
     @Test
     @DisplayName("회원 정보 수정 테스트")
     void test2() {
-        Users joinUser = userService.joinUser(new Users(
+        Users joinUser = userService.joinUser(Users.createUser(
                 "서지원",
                 "서지원123",
                 "sjiwon",
@@ -134,7 +134,7 @@ class UserServiceTest {
     @DisplayName("[user_id]로 회원 정보 조회")
     void test3() {
         // given
-        Users joinUser1 = userService.joinUser(new Users(
+        Users joinUser1 = userService.joinUser(Users.createUser(
                 "서지원",
                 "서지원123",
                 "sjiwon",
@@ -145,7 +145,7 @@ class UserServiceTest {
                 LocalDate.of(2000, 1, 18)
         ));
 
-        Users joinUser2 = userService.joinUser(new Users(
+        Users joinUser2 = userService.joinUser(Users.createUser(
                 "서지원2",
                 "서지원123456",
                 "sjiwon1234",
@@ -178,7 +178,7 @@ class UserServiceTest {
     @DisplayName("loginId로 Password 조회")
     void test4() {
         // given
-        Users joinUser1 = userService.joinUser(new Users(
+        Users joinUser1 = userService.joinUser(Users.createUser(
                 "서지원",
                 "서지원123",
                 "sjiwon",
@@ -189,7 +189,7 @@ class UserServiceTest {
                 LocalDate.of(2000, 1, 18)
         ));
 
-        Users joinUser2 = userService.joinUser(new Users(
+        Users joinUser2 = userService.joinUser(Users.createUser(
                 "서지원2",
                 "서지원123456",
                 "sjiwon1234",
@@ -216,7 +216,7 @@ class UserServiceTest {
     @DisplayName("[user_id]로 소속 학교 찾기")
     void test5() {
         // given
-        Users joinUser1 = userService.joinUser(new Users(
+        Users joinUser1 = userService.joinUser(Users.createUser(
                 "서지원",
                 "서지원123",
                 "sjiwon",
@@ -227,7 +227,7 @@ class UserServiceTest {
                 LocalDate.of(2000, 1, 18)
         ));
 
-        Users joinUser2 = userService.joinUser(new Users(
+        Users joinUser2 = userService.joinUser(Users.createUser(
                 "서지원2",
                 "서지원123456",
                 "sjiwon1234",
@@ -254,7 +254,7 @@ class UserServiceTest {
     @DisplayName("6-1 : 충전")
     void test6_1() {
         // given
-        Users joinUser = userService.joinUser(new Users(
+        Users joinUser = userService.joinUser(Users.createUser(
                 "서지원",
                 "서지원123",
                 "sjiwon",
@@ -295,7 +295,7 @@ class UserServiceTest {
         // given
         int initPoint = 50000;
 
-        Users joinUser = userService.joinUser2(new Users(
+        Users joinUser = userService.joinUser2(Users.createUser(
                 "서지원",
                 "서지원123",
                 "sjiwon",
@@ -344,7 +344,7 @@ class UserServiceTest {
         // given
         int initPoint = 50000;
 
-        Users joinUser = userService.joinUser2(new Users(
+        Users joinUser = userService.joinUser2(Users.createUser(
                 "서지원",
                 "서지원123",
                 "sjiwon",
@@ -382,7 +382,7 @@ class UserServiceTest {
         // given
         int initPoint = 50000;
 
-        Users joinUser = userService.joinUser2(new Users(
+        Users joinUser = userService.joinUser2(Users.createUser(
                 "서지원",
                 "서지원123",
                 "sjiwon",
@@ -431,7 +431,7 @@ class UserServiceTest {
         // given
         int initPoint = 50000;
 
-        Users joinUser = userService.joinUser2(new Users(
+        Users joinUser = userService.joinUser2(Users.createUser(
                 "서지원",
                 "서지원123",
                 "sjiwon",

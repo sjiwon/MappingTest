@@ -27,7 +27,7 @@ public class UserService {
     // 1. 회원가입 (최초 회원가입시 Point Instance도 자동 생성)
     public Users joinUser(Users user){
         Users joinUser = userRepository.save(user);
-        PointHistory pointHistory = pointHistoryRepository.save(new PointHistory(user));
+        PointHistory pointHistory = pointHistoryRepository.save(PointHistory.createPointHistory(user));
 
         log.info("\n회원가입 User = {}", joinUser);
         log.info("\nPointInstance 생성(JOIN) = {} / 생성된 user = {}", pointHistory, pointHistory.getUser());
@@ -39,7 +39,7 @@ public class UserService {
     // UserServiceTest 6을 위한 joinUser2
     public Users joinUser2(Users user, Integer point){
         Users joinUser = userRepository.save(user);
-        PointHistory pointHistory = pointHistoryRepository.save(new PointHistory(user, point));
+        PointHistory pointHistory = pointHistoryRepository.save(PointHistory.testPointHistory(user, point));
 
         log.info("\n회원가입 User = {}", joinUser);
         log.info("\nPointInstance 생성(JOIN) = {} / 생성된 user = {}", pointHistory, pointHistory.getUser());
@@ -105,7 +105,7 @@ public class UserService {
         log.info("\n{}의 현재 포인트 보유량 = {}", findUser, findUserPoint);
 
         if(transferForm.getDealType() == DealType.CHARGE){
-            PointHistory pointHistory = pointHistoryRepository.save(new PointHistory(
+            PointHistory pointHistory = pointHistoryRepository.save(PointHistory.insertPointHistory(
                     transferForm.getDealType(),
                     transferForm.getDealAmount(),
                     findUserPoint + transferForm.getDealAmount(),
@@ -118,7 +118,7 @@ public class UserService {
                 log.info("\n실패한 환불 요청 {}", transferForm);
                 throw new NoMoneyException("보유한 포인트량을 초과해서 환불할 수 없습니다");
             } else {
-                PointHistory pointHistory = pointHistoryRepository.save(new PointHistory(
+                PointHistory pointHistory = pointHistoryRepository.save(PointHistory.insertPointHistory(
                         transferForm.getDealType(),
                         transferForm.getDealAmount(),
                         findUserPoint - transferForm.getDealAmount(),
@@ -132,7 +132,7 @@ public class UserService {
                 log.info("\n실패한 사용 요청 {}", transferForm);
                 throw new NoMoneyException("보유한 포인트량을 초과해서 사용할 수 없습니다");
             } else {
-                PointHistory pointHistory = pointHistoryRepository.save(new PointHistory(
+                PointHistory pointHistory = pointHistoryRepository.save(PointHistory.insertPointHistory(
                         transferForm.getDealType(),
                         transferForm.getDealAmount(),
                         findUserPoint - transferForm.getDealAmount(),

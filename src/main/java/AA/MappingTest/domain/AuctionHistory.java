@@ -34,23 +34,14 @@ public class AuctionHistory {
     @JoinColumn(name = "auction_id", updatable = false)
     private Auction auction;
 
-    public void addAuctionHistoryToUser(Users user){
-        this.user = user;
-        user.getAuctionHistoryList().add(this);
-    }
-
-    public void addAuctionHistoryToArt(Art art){
-        this.art = art;
-        art.getAuctionHistoryList().add(this);
-    }
-
-    public void addAuctionHistoryToAuction(Auction auction){
-        this.auction = auction;
-        auction.getAuctionHistoryList().add(this);
-    }
-
-    public AuctionHistory(int bidPrice) {
-        this.bidPrice = bidPrice;
+    // 생성 메소드
+    public static AuctionHistory createAuctionHistory(Auction auction, Art art, Users user, int bidPrice) {
+        AuctionHistory auctionHistory = new AuctionHistory();
+        auctionHistory.auction = auction;
+        auctionHistory.art = art;
+        auctionHistory.user = user;
+        auctionHistory.bidPrice = bidPrice;
+        return auctionHistory;
     }
 
     @Override

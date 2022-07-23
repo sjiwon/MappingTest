@@ -21,11 +21,11 @@ public class LikeArt {
     @JoinColumn(name = "art_id", nullable = false)
     private Art art;
 
-    public LikeArt(Users user, Art art) {
-        this.user = user;
-        this.art = art;
-
-        user.getLikeArtList().add(this);
+    public static LikeArt createLikeArt(Users user, Art art) {
+        LikeArt likeArt = new LikeArt();
+        likeArt.user = user;
+        likeArt.art = art;
+        return likeArt;
     }
 
     @Override
