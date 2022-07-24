@@ -35,7 +35,6 @@ class HashtagServiceTest {
                 "auction",
                 "auction_history",
                 "like_art",
-//                "like_artist",
                 "point_history",
                 "purchase_history"
         };
@@ -54,7 +53,6 @@ class HashtagServiceTest {
         Hashtag hashTag1 = Hashtag.createHashtag("HashtagA");
         Hashtag hashTag2 = Hashtag.createHashtag("HashtagB");
         Hashtag hashTag3 = Hashtag.createHashtag("HashtagC");
-
 
         // when
         Hashtag registerHashTag1 = hashtagService.registerHashTag(hashTag1);

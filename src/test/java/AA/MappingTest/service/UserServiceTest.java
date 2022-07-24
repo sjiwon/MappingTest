@@ -46,7 +46,6 @@ class UserServiceTest {
                 "auction",
                 "auction_history",
                 "like_art",
-//                "like_artist",
                 "point_history",
                 "purchase_history"
         };

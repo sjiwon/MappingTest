@@ -1,7 +1,9 @@
 package AA.MappingTest.domain;
 
 import AA.MappingTest.domain.enums.PurchaseCategory;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -26,7 +28,7 @@ public class PurchaseHistory {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "purchase_category", nullable = false, length = 8)
-    private PurchaseCategory purchaseCategory; // GENERAL(일반 판매를 통한 구매), AUCTION(경매를 통한 낙찰)
+    private PurchaseCategory purchaseCategory; // GENERAL(일반 판매를 통한 구매), AUCTION(경매를 통한 낙찰) -> 이 값 그대로 insert
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
@@ -37,7 +39,7 @@ public class PurchaseHistory {
     private Art art;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "auction_id", unique = true)
+    @JoinColumn(name = "auction_id", unique = true) // 경매를 통한 구매일 경우 체크
     private Auction auction;
 
 

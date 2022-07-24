@@ -1,6 +1,8 @@
 package AA.MappingTest.domain;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -21,13 +23,15 @@ public class LikeArt {
     @JoinColumn(name = "art_id", nullable = false)
     private Art art;
 
-    public static LikeArt createLikeArt(Users user, Art art) {
+    //==생성 메소드==//
+    public static LikeArt createLikeArt(Users user, Art art) { // 작품찜 할 경우 생성해서 insert
         LikeArt likeArt = new LikeArt();
         likeArt.user = user;
         likeArt.art = art;
         return likeArt;
     }
 
+    //==테스트를 위한 toString()==//
     @Override
     public String toString() {
         return "LikeArt{" +

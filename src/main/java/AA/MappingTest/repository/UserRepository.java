@@ -1,6 +1,6 @@
 package AA.MappingTest.repository;
 
-import AA.MappingTest.domain.*;
+import AA.MappingTest.domain.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -1,6 +1,8 @@
 package AA.MappingTest.domain;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -34,8 +36,8 @@ public class AuctionHistory {
     @JoinColumn(name = "auction_id", updatable = false)
     private Auction auction;
 
-    // 생성 메소드
-    public static AuctionHistory createAuctionHistory(Auction auction, Art art, Users user, int bidPrice) {
+    //==생성 메소드==//
+    public static AuctionHistory createAuctionHistory(Auction auction, Art art, Users user, int bidPrice) { // bid 들어오면 반드시 생성해서 insert
         AuctionHistory auctionHistory = new AuctionHistory();
         auctionHistory.auction = auction;
         auctionHistory.art = art;
@@ -44,6 +46,7 @@ public class AuctionHistory {
         return auctionHistory;
     }
 
+    //==테스트를 위한 toString()==//
     @Override
     public String toString() {
         return "\nAuctionHistory{" +

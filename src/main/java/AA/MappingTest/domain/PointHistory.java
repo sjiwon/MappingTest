@@ -1,7 +1,9 @@
 package AA.MappingTest.domain;
 
 import AA.MappingTest.domain.enums.DealType;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -27,7 +29,7 @@ public class PointHistory {
     @Column(name = "point", nullable = false)
     private Integer point; // default 0
 
-    @CreationTimestamp
+    @CreationTimestamp // PointHistory insert하면 자동 등록
     @Column(name = "deal_date")
     private LocalDateTime dealDate;
 
@@ -56,7 +58,7 @@ public class PointHistory {
     }
 
     // 생성 메소드 3 - 테스트용 생성자 (6번 테스트) //
-    public static PointHistory testPointHistory(Users user, Integer point) { // 테스트용 생성자
+    public static PointHistory testPointHistory(Users user, Integer point) {
         PointHistory pointHistory = new PointHistory();
         pointHistory.dealType = DealType.JOIN;
         pointHistory.dealAmount = 0;
@@ -65,6 +67,7 @@ public class PointHistory {
         return pointHistory;
     }
 
+    //==테스트를 위한 toString()==//
     @Override
     public String toString() {
         return "\nPointHistory{" +

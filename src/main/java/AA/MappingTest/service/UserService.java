@@ -1,6 +1,7 @@
 package AA.MappingTest.service;
 
-import AA.MappingTest.domain.*;
+import AA.MappingTest.domain.PointHistory;
+import AA.MappingTest.domain.Users;
 import AA.MappingTest.domain.enums.DealType;
 import AA.MappingTest.exception.NoMoneyException;
 import AA.MappingTest.exception.NoUserInfoException;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import java.util.*;
+import java.util.Optional;
 
 @Slf4j
 @Service
