@@ -1,5 +1,6 @@
 package AA.MappingTest.service;
 
+import AA.MappingTest.domain.Art;
 import AA.MappingTest.domain.PointHistory;
 import AA.MappingTest.domain.Users;
 import AA.MappingTest.domain.enums.DealType;
@@ -20,6 +21,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class UserService {
     private final UserRepository userRepository;
     private final PointHistoryRepository pointHistoryRepository;
@@ -141,6 +143,15 @@ public class UserService {
                 ));
                 log.info("\n{}의 포인트 사용 내역 = {}", findUser, pointHistory);
             }
+        }
+    }
+
+    // 7. 작품 찜
+    @Transactional
+    public void likeArtClick(Long id, Art... arts) {
+        Users findUser = userRepository.findById(id).orElseThrow();
+        for (Art art : arts) {
+            findUser.addLikeArts(art);
         }
     }
 }

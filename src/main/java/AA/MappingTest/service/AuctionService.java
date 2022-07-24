@@ -22,6 +22,7 @@ import java.util.Objects;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class AuctionService {
 
     private final AuctionRepository auctionRepository;
@@ -69,6 +70,7 @@ public class AuctionService {
     }
     
     // 5. 실시간 경매 진행
+    @Transactional
     public void executeBid(Long id, AuctionBidDTO auctionBid){
         log.info("\n새로운 비드 정보 = {}", auctionBid);
 

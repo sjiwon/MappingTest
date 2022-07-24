@@ -26,9 +26,9 @@ public class ArtHashtag {
     //==테스트를 위한 toString()==//
     @Override
     public String toString() {
-        return "ArtHashtag{" +
-                "art=" + art +
-                ", hashtag=" + hashtag +
-                '}';
+        return "\nArtHashtag{" +
+                "\n\tart=" + art +
+                ", \n\thashtag=" + hashtag +
+                "\n}";
     }
 }

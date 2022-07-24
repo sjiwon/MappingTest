@@ -5,6 +5,7 @@ import AA.MappingTest.domain.ArtHashtag;
 import AA.MappingTest.domain.Hashtag;
 import AA.MappingTest.domain.Users;
 import AA.MappingTest.domain.enums.SaleType;
+import AA.MappingTest.repository.ArtHashtagRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,6 +34,9 @@ class ArtHashtagRegisterTest {
 
     @Autowired
     HashtagService hashtagService;
+
+    @Autowired
+    ArtHashtagRepository artHashtagRepository;
 
     @Autowired
     EntityManager em;
@@ -101,11 +105,7 @@ class ArtHashtagRegisterTest {
 
         // then //
         // 1. ArtHash Table에서 조회
-        List<ArtHashtag> artHashtagList = em.createQuery(
-                        "select ah from ArtHashtag ah where ah.art.id=:id",
-                        ArtHashtag.class
-                ).setParameter("id", art.getId())
-                .getResultList();
+        List<ArtHashtag> artHashtagList = artHashtagRepository.findHashtagByArtId(art.getId());
 
         for (ArtHashtag artHashtag : artHashtagList) {
             assertThat(artHashtag.getHashtag()).isIn(registerHashTag1, registerHashTag2, registerHashTag3);

@@ -59,16 +59,12 @@ public class Art {
     @OrderBy(value = "name")
     private Set<Hashtag> artHashtagList = new HashSet<>(); // N:M @JoinTable
 
-    public void setUser(Users user){
-        this.user = user;
-        user.getArtList().add(this); // Users의 List<Art>에 add (변경 금지)
-    }
 
     //==생성 메소드==//
     public static Art createArt(Users user, String name, String description, Integer initPrice, SaleType saleType,
                String uploadName, String storageName, Hashtag... hashtags) {
         Art art = new Art();
-        art.setUser(user);
+        art.user = user;
         art.name = name;
         art.description = description;
         art.initPrice = initPrice;

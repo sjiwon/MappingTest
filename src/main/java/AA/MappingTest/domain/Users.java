@@ -46,9 +46,14 @@ public class Users {
     @Column(name = "birth", nullable = false)
     private LocalDate birth;
 
-    @OneToMany(mappedBy = "user")
-    @OrderBy(value = "registerDate desc") // 등록날짜 내림차순 정렬
-    private Set<Art> artList = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+            name = "like_art",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "art_id")
+    )
+    @OrderBy(value = "registerDate desc")
+    private Set<Art> likeArtList = new HashSet<>(); // N:M @JoinTable
 
     //==생성 메소드==//
     public static Users createUser(String name, String nickname, String loginId, String loginPassword,
@@ -85,6 +90,13 @@ public class Users {
     // 비밀번호 변경
     public void changePassword(String loginPassword){
         this.loginPassword = loginPassword;
+    }
+
+    // 작품 찜 기능
+    public void addLikeArts(Art... arts){
+        for (Art art : arts) {
+            this.getLikeArtList().add(art);
+        }
     }
 
     //==테스트를 위한 toString()==//
