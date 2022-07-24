@@ -6,13 +6,14 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class PointTransferDTO {
     private DealType dealType;
-
     private Integer dealAmount;
 
-
+    public PointTransferDTO(DealType dealType, Integer dealAmount) {
+        this.dealType = dealType;
+        this.dealAmount = dealAmount;
+    }
 
     @Override
     public String toString() {

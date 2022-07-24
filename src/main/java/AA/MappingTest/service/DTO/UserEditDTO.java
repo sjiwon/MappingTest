@@ -1,18 +1,20 @@
 package AA.MappingTest.service.DTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserEditDTO {
     private String nickname;
     private String phoneNumber;
     private String address;
+
+    public UserEditDTO(String nickname, String phoneNumber, String address) {
+        this.nickname = nickname;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+    }
 
     @Override
     public String toString() {

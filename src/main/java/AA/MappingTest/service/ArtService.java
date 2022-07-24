@@ -32,10 +32,10 @@ public class ArtService {
 
     @Transactional
     // 작품 정보 수정(설명)
-    public void editArt(Long id, ArtEditDTO editArt){
+    public void editArt(Long artId, ArtEditDTO editArt){
         log.info("\n수정할 정보(설명) = {}", editArt);
 
-        Art findArt = artRepository.findById(id).orElseThrow();
+        Art findArt = artRepository.findById(artId).orElseThrow();
         log.info("\n수정할 Art = {}", findArt);
 
         findArt.changeDescription(editArt.getDescription());
@@ -44,16 +44,16 @@ public class ArtService {
     }
 
     // 작품 판매 타입 (경매/일반)
-    public String getSaleType(Long id){
-        String type = artRepository.isAuctionOrGeneral(id).name();
-        log.info("\n{}의 판매 타입 = {}", id, type);
-        return type;
+    public String getSaleType(Long artId){
+        String artType = artRepository.isAuctionOrGeneral(artId).name();
+        log.info("\n{}의 판매 타입 = {}", artId, artType);
+        return artType;
     }
 
     // 특정 회원의 작품리스트 검색
-    public List<Art> artListFromUserId(Long id){
-        List<Art> artListByUserId = artRepository.findArtListByUserId(id);
-        log.info("\n=== user_id : {}의 작품 리스트 ===", id);
+    public List<Art> artListFromUserId(Long userId){
+        List<Art> artListByUserId = artRepository.findArtListByUserId(userId);
+        log.info("\n=== user_id : {}의 작품 리스트 ===", userId);
         for (Art art : artListByUserId) {
             System.out.println(art);
         }
@@ -62,8 +62,8 @@ public class ArtService {
 
     // 해시태그 등록
     @Transactional
-    public void addHashtag(Long id, Hashtag... hashtags){
-        Art findArt = artRepository.findById(id).orElseThrow();
+    public void addHashtag(Long artId, Hashtag... hashtags){
+        Art findArt = artRepository.findById(artId).orElseThrow();
         for (Hashtag hashtag : hashtags) {
             ArtHashtag artHashtag = ArtHashtag.insertArtHashtag(findArt, hashtag);
             artHashtagRepository.save(artHashtag);
@@ -72,11 +72,7 @@ public class ArtService {
 
     // 해시태그 삭제
     @Transactional
-    public void removeHashtag(Long id, Hashtag hashtag){
-        Art findArt = artRepository.findById(id).orElseThrow();
-        ArtHashtag findArtHashtag = artHashtagRepository.findArtHashtagByArtIdAndHashtagId(id, hashtag.getId());
-
-        findArt.getArtHashtagList().remove(findArtHashtag); // Art의 Set<ArtHashtag>에서 삭제
-        artHashtagRepository.delete(findArtHashtag);
+    public void removeHashtag(Long artId, Hashtag hashtag){
+        artHashtagRepository.deleteLikeArtByUserIdAndArtId(artId, hashtag.getId());
     }
 }

@@ -11,10 +11,10 @@ import java.util.List;
 public interface ArtRepository extends JpaRepository<Art, Long> {
 
     // 작품이 경매용인지 일반 판매용인지
-    @Query("select a.saleType from Art a where a.id = :id")
-    SaleType isAuctionOrGeneral(@Param("id") Long id);
+    @Query("select a.saleType from Art a where a.id = :artId")
+    SaleType isAuctionOrGeneral(@Param("artId") Long artId);
 
     // 특정 회원의 작품 리스트
-    @Query("select a from Art a join fetch a.user where a.user.id = :id")
-    List<Art> findArtListByUserId(@Param("id") Long id);
+    @Query("select a from Art a join fetch a.user where a.user.id = :userId")
+    List<Art> findArtListByUserId(@Param("userId") Long userId);
 }

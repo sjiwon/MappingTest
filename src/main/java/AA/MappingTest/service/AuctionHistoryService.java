@@ -18,17 +18,17 @@ public class AuctionHistoryService {
     private final AuctionHistoryRepository auctionHistoryRepository;
 
     // [user_id]의 경매 참여 내역 조회
-    public List<AuctionHistory> getAuctionListFromUserId(Long id){
-        return auctionHistoryRepository.findAuctionHistoriesByUserId(id);
+    public List<AuctionHistory> getAuctionListFromUserId(Long userId){
+        return auctionHistoryRepository.findAuctionHistoriesByUserId(userId);
     }
 
     // [art_id]의 경매 내역 조회
-    public List<AuctionHistory> getAuctionListFromArtId(Long id){
-        return auctionHistoryRepository.findAuctionHistoriesByArtId(id);
+    public List<AuctionHistory> getAuctionListFromArtId(Long artId){
+        return auctionHistoryRepository.findAuctionHistoriesByArtId(artId);
     }
 
     // [auction_id]의 bid 내역 조회
-    public List<AuctionHistory> getAuctionListFromAuctionId(Long id){
-        return auctionHistoryRepository.findAuctionHistoriesByAuctionId(id);
+    public List<AuctionHistory> getAuctionListFromAuctionId(Long auctionId){
+        return auctionHistoryRepository.findAuctionHistoriesByAuctionId(auctionId);
     }
 }

@@ -22,8 +22,8 @@ public class HashtagService {
         return saveHashtag;
     }
 
-    // ID로 해시태그이름 찾기
-    public Hashtag findHashtagById(Long id){
-        return hashtagRepository.findById(id).orElseThrow();
+    // [hashtag_id]로 해시태그이름 찾기
+    public Hashtag findHashtagById(Long hashtagId){
+        return hashtagRepository.findById(hashtagId).orElseThrow();
     }
 }

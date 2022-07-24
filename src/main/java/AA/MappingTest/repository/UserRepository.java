@@ -12,6 +12,6 @@ public interface UserRepository extends JpaRepository<Users, Long> {
     String findPasswordByLoginId(@Param("loginId") String loginId);
 
     // [user_id]로 소속 학교 찾기
-    @Query("select u.schoolName from Users u where u.id = :id")
-    String findSchoolByUserId(@Param("id") Long id);
+    @Query("select u.schoolName from Users u where u.id = :userId")
+    String findSchoolByUserId(@Param("userId") Long userId);
 }

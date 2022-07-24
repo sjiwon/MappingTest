@@ -162,10 +162,6 @@ public class UserService {
     // 작품 찜 취소
     @Transactional
     public void removeLikeArt(Long id, Art art) {
-        Users findUser = userRepository.findById(id).orElseThrow();
-        LikeArt findLikeArt = likeArtRepository.findLikeArtByUserIdAndArtId(id, art.getId());
-
-        findUser.getLikeArtList().remove(findLikeArt); // User의 Set<LikeArt>에서 삭제
-        likeArtRepository.delete(findLikeArt);
+        likeArtRepository.deleteLikeArtByUserIdAndArtId(id, art.getId());
     }
 }

@@ -28,7 +28,6 @@ public class ArtHashtag {
         ArtHashtag artHashtag = new ArtHashtag();
         artHashtag.art = art;
         artHashtag.hashtag = hashtag;
-        art.getArtHashtagList().add(artHashtag);
         return artHashtag;
     }
 

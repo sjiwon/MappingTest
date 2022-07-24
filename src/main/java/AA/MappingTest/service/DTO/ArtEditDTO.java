@@ -1,16 +1,16 @@
 package AA.MappingTest.service.DTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ArtEditDTO {
     private String description;
+
+    public ArtEditDTO(String description) {
+        this.description = description;
+    }
 
     @Override
     public String toString() {

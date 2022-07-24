@@ -1,16 +1,19 @@
 package AA.MappingTest.service.DTO;
 
 import AA.MappingTest.domain.Users;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class AuctionHighestUserDTO {
     private Users user;
     private Integer price;
+
+    public AuctionHighestUserDTO(Users user, Integer price) {
+        this.user = user;
+        this.price = price;
+    }
 
     @Override
     public String toString() {

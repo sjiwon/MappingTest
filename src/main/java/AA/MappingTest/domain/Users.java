@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -43,10 +41,6 @@ public class Users {
 
     @Column(name = "birth", nullable = false)
     private LocalDate birth;
-
-    @OneToMany(mappedBy = "user")
-    @OrderBy(value = "art.registerDate desc")
-    private Set<LikeArt> likeArtList = new HashSet<>();
 
     //==생성 메소드==//
     public static Users createUser(String name, String nickname, String loginId, String loginPassword,

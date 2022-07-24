@@ -8,8 +8,6 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -47,10 +45,6 @@ public class Art {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, updatable = false) // 작품 등록하면 등록작가 변경 불가능 (FE에서 경고 알람 생성)
     private Users user;
-
-    @OneToMany(mappedBy = "art")
-    @OrderBy(value = "hashtag.name")
-    private Set<ArtHashtag> artHashtagList = new HashSet<>();
 
     //==생성 메소드==//
     public static Art createArt(Users user, String name, String description, Integer initPrice, SaleType saleType,
