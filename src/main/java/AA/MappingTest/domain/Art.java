@@ -8,9 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -50,19 +48,13 @@ public class Art {
     @JoinColumn(name = "user_id", nullable = false, updatable = false) // 작품 등록하면 등록작가 변경 불가능 (FE에서 경고 알람 생성)
     private Users user;
 
-    @ManyToMany
-    @JoinTable(
-            name = "art_hashtag",
-            joinColumns = @JoinColumn(name = "art_id"),
-            inverseJoinColumns = @JoinColumn(name = "hashtag_id")
-    )
-    @OrderBy(value = "name")
-    private Set<Hashtag> artHashtagList = new HashSet<>(); // N:M @JoinTable
-
+    @OneToMany(mappedBy = "art")
+    @OrderBy(value = "hashtag.name")
+    private Set<ArtHashtag> artHashtagList = new HashSet<>();
 
     //==생성 메소드==//
     public static Art createArt(Users user, String name, String description, Integer initPrice, SaleType saleType,
-               String uploadName, String storageName, Hashtag... hashtags) {
+                                String uploadName, String storageName) {
         Art art = new Art();
         art.user = user;
         art.name = name;
@@ -71,9 +63,6 @@ public class Art {
         art.saleType = saleType;
         art.uploadName = uploadName;
         art.storageName = storageName;
-        for (Hashtag hashtag : hashtags) { // 해시태그 등록
-            art.getArtHashtagList().add(hashtag);
-        }
         return art;
     }
 

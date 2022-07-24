@@ -5,9 +5,9 @@ import AA.MappingTest.domain.Auction;
 import AA.MappingTest.domain.AuctionHistory;
 import AA.MappingTest.domain.Users;
 import AA.MappingTest.domain.enums.SaleType;
+import AA.MappingTest.exception.CannotBidMyArtException;
 import AA.MappingTest.exception.LessBidException;
 import AA.MappingTest.exception.NoAuctionTypeException;
-import AA.MappingTest.exception.CannotBidMyArtException;
 import AA.MappingTest.service.DTO.AuctionBidDTO;
 import AA.MappingTest.service.DTO.AuctionHighestUserDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -19,13 +19,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @Slf4j
 @SpringBootTest

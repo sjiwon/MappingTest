@@ -10,7 +10,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -92,18 +91,16 @@ class LikeArtRegisterTest {
                 15000,
                 SaleType.GENERAL,
                 "artA-UploadName",
-                serverFileNameArtA,
-                hashTag1,
-                hashTag2
+                serverFileNameArtA
         );
         artService.registerArt(artA);
+        artService.addHashtag(artA.getId(), hashTag1, hashTag2);
 
         List<ArtHashtag> hashtagByArtAId = artHashtagRepository.findHashtagByArtId(artA.getId());
         System.out.println("artA의 해시태그 목록들");
         for (ArtHashtag artHashtag : hashtagByArtAId) {
             System.out.println(artHashtag.getHashtag());
         }
-
 
 
         String serverFileNameArtB = UUID.randomUUID().toString().replaceAll("-", "");
@@ -115,11 +112,11 @@ class LikeArtRegisterTest {
                 30000,
                 SaleType.GENERAL,
                 "artB-UploadName",
-                serverFileNameArtB,
-                hashTag1,
-                hashTag3
+                serverFileNameArtB
         );
         artService.registerArt(artB);
+        artService.addHashtag(artB.getId(), hashTag1, hashTag3);
+
         List<ArtHashtag> hashtagByArtBId = artHashtagRepository.findHashtagByArtId(artB.getId());
         for (ArtHashtag artHashtag : hashtagByArtBId) {
             System.out.println(artHashtag.getHashtag());
@@ -135,11 +132,11 @@ class LikeArtRegisterTest {
                 18000,
                 SaleType.GENERAL,
                 "artC-UploadName",
-                serverFileNameArtC,
-                hashTag2,
-                hashTag3
+                serverFileNameArtC
         );
         artService.registerArt(artC);
+        artService.addHashtag(artC.getId(), hashTag2, hashTag3);
+
         List<ArtHashtag> hashtagByArtCId = artHashtagRepository.findHashtagByArtId(artC.getId());
         for (ArtHashtag artHashtag : hashtagByArtCId) {
             System.out.println(artHashtag.getHashtag());
@@ -172,12 +169,8 @@ class LikeArtRegisterTest {
         userService.joinUser(userB);
 
         // 작품 찜
-        userService.likeArtClick(userA.getId(), artA, artB);
-        userService.likeArtClick(userB.getId(), artB, artC);
-
-        // 에러
-        System.out.println("userA가 artA 중복 좋아요 클릭");
-        userService.likeArtClick(userA.getId(), artA);
+        userService.addLikeArt(userA.getId(), artA, artB);
+        userService.addLikeArt(userB.getId(), artB, artC);
 
         // then
         System.out.println("=== userA의 작품찜 목록들 ===");
@@ -189,6 +182,14 @@ class LikeArtRegisterTest {
         System.out.println("=== userB의 작품찜 목록들 ===");
         List<LikeArt> artListByUserBId = likeArtRepository.findArtListByUserId(userB.getId());
         for (LikeArt likeArt : artListByUserBId) {
+            System.out.println(likeArt.getArt());
+        }
+
+        // userA의 찜에서 artB 삭제
+        userService.removeLikeArt(userA.getId(), artB);
+        System.out.println("=== userA의 작품찜 목록들 ===");
+        List<LikeArt> artListByUserAAId = likeArtRepository.findArtListByUserId(userA.getId());
+        for (LikeArt likeArt : artListByUserAAId) {
             System.out.println(likeArt.getArt());
         }
     }

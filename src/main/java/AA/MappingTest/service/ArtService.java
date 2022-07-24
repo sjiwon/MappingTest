@@ -1,6 +1,9 @@
 package AA.MappingTest.service;
 
 import AA.MappingTest.domain.Art;
+import AA.MappingTest.domain.ArtHashtag;
+import AA.MappingTest.domain.Hashtag;
+import AA.MappingTest.repository.ArtHashtagRepository;
 import AA.MappingTest.repository.ArtRepository;
 import AA.MappingTest.service.DTO.ArtEditDTO;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +20,7 @@ import java.util.List;
 public class ArtService {
 
     private final ArtRepository artRepository;
+    private final ArtHashtagRepository artHashtagRepository;
 
     @Transactional
     // 작품 등록
@@ -54,5 +58,25 @@ public class ArtService {
             System.out.println(art);
         }
         return artListByUserId;
+    }
+
+    // 해시태그 등록
+    @Transactional
+    public void addHashtag(Long id, Hashtag... hashtags){
+        Art findArt = artRepository.findById(id).orElseThrow();
+        for (Hashtag hashtag : hashtags) {
+            ArtHashtag artHashtag = ArtHashtag.insertArtHashtag(findArt, hashtag);
+            artHashtagRepository.save(artHashtag);
+        }
+    }
+
+    // 해시태그 삭제
+    @Transactional
+    public void removeHashtag(Long id, Hashtag hashtag){
+        Art findArt = artRepository.findById(id).orElseThrow();
+        ArtHashtag findArtHashtag = artHashtagRepository.findArtHashtagByArtIdAndHashtagId(id, hashtag.getId());
+
+        findArt.getArtHashtagList().remove(findArtHashtag); // Art의 Set<ArtHashtag>에서 삭제
+        artHashtagRepository.delete(findArtHashtag);
     }
 }

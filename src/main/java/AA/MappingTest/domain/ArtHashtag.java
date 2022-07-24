@@ -1,6 +1,5 @@
 package AA.MappingTest.domain;
 
-import AA.MappingTest.domain.IdClass.ArtHashtagId;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,24 +10,36 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "art_hashtag")
-@IdClass(ArtHashtagId.class) // 복합키 클래스
 public class ArtHashtag {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "art_id", nullable = false)
     private Art art;
 
-    @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hashtag_id", nullable = false)
     private Hashtag hashtag;
 
+    //==Art에 Hashtag 등록할 때 사용할 생성 메소드==//
+    public static ArtHashtag insertArtHashtag(Art art, Hashtag hashtag){
+        ArtHashtag artHashtag = new ArtHashtag();
+        artHashtag.art = art;
+        artHashtag.hashtag = hashtag;
+        art.getArtHashtagList().add(artHashtag);
+        return artHashtag;
+    }
+
     //==테스트를 위한 toString()==//
+
     @Override
     public String toString() {
-        return "\nArtHashtag{" +
-                "\n\tart=" + art +
-                ", \n\thashtag=" + hashtag +
-                "\n}";
+        return "ArtHashtag{" +
+                "id=" + id +
+                ", art=" + art +
+                ", hashtag=" + hashtag +
+                '}';
     }
 }

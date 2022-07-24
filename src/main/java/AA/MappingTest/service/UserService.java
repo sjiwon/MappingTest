@@ -1,11 +1,13 @@
 package AA.MappingTest.service;
 
 import AA.MappingTest.domain.Art;
+import AA.MappingTest.domain.LikeArt;
 import AA.MappingTest.domain.PointHistory;
 import AA.MappingTest.domain.Users;
 import AA.MappingTest.domain.enums.DealType;
 import AA.MappingTest.exception.NoMoneyException;
 import AA.MappingTest.exception.NoUserInfoException;
+import AA.MappingTest.repository.LikeArtRepository;
 import AA.MappingTest.repository.PointHistoryRepository;
 import AA.MappingTest.repository.UserRepository;
 import AA.MappingTest.service.DTO.PointTransferDTO;
@@ -25,6 +27,7 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final PointHistoryRepository pointHistoryRepository;
+    private final LikeArtRepository likeArtRepository;
 
     @Transactional
     // 1. 회원가입 (최초 회원가입시 Point Instance도 자동 생성)
@@ -148,10 +151,21 @@ public class UserService {
 
     // 7. 작품 찜
     @Transactional
-    public void likeArtClick(Long id, Art... arts) {
+    public void addLikeArt(Long id, Art... arts) {
         Users findUser = userRepository.findById(id).orElseThrow();
         for (Art art : arts) {
-            findUser.addLikeArts(art);
+            LikeArt likeArt = LikeArt.insertLikeArt(findUser, art);
+            likeArtRepository.save(likeArt);
         }
+    }
+
+    // 작품 찜 취소
+    @Transactional
+    public void removeLikeArt(Long id, Art art) {
+        Users findUser = userRepository.findById(id).orElseThrow();
+        LikeArt findLikeArt = likeArtRepository.findLikeArtByUserIdAndArtId(id, art.getId());
+
+        findUser.getLikeArtList().remove(findLikeArt); // User의 Set<LikeArt>에서 삭제
+        likeArtRepository.delete(findLikeArt);
     }
 }

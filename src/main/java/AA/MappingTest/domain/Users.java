@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -46,14 +44,9 @@ public class Users {
     @Column(name = "birth", nullable = false)
     private LocalDate birth;
 
-    @ManyToMany
-    @JoinTable(
-            name = "like_art",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "art_id")
-    )
-    @OrderBy(value = "registerDate desc")
-    private Set<Art> likeArtList = new HashSet<>(); // N:M @JoinTable
+    @OneToMany(mappedBy = "user")
+    @OrderBy(value = "art.registerDate desc")
+    private Set<LikeArt> likeArtList = new HashSet<>();
 
     //==생성 메소드==//
     public static Users createUser(String name, String nickname, String loginId, String loginPassword,
@@ -90,13 +83,6 @@ public class Users {
     // 비밀번호 변경
     public void changePassword(String loginPassword){
         this.loginPassword = loginPassword;
-    }
-
-    // 작품 찜 기능
-    public void addLikeArts(Art... arts){
-        for (Art art : arts) {
-            this.getLikeArtList().add(art);
-        }
     }
 
     //==테스트를 위한 toString()==//

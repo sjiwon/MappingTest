@@ -7,7 +7,6 @@ import AA.MappingTest.domain.Users;
 import AA.MappingTest.domain.enums.SaleType;
 import AA.MappingTest.repository.ArtHashtagRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -61,7 +60,7 @@ class ArtHashtagRegisterTest {
         }
     }
 
-    // 1. 해시태그 등록 (JoinTable : ArtHashtag Insert Test)
+    // 1. 해시태그 등록
     @Test
     @DisplayName("해시태그 등록 테스트")
     void test1(){
@@ -95,24 +94,30 @@ class ArtHashtagRegisterTest {
                 15000,
                 SaleType.GENERAL,
                 "artA-UploadName",
-                serverFileNameArtA,
-                // 해시태그 등록 3개
-                hashTag1,
-                hashTag2,
-                hashTag3
+                serverFileNameArtA
         );
         artService.registerArt(art);
+        artService.addHashtag(art.getId(), hashTag1, hashTag2, hashTag3); // 해시태그 3개 등록
 
-        // then //
-        // 1. ArtHash Table에서 조회
-        List<ArtHashtag> artHashtagList = artHashtagRepository.findHashtagByArtId(art.getId());
+        // 등록하고 ArtHashtag 조회
+        List<ArtHashtag> artHashtagListA = artHashtagRepository.findHashtagByArtId(art.getId());
 
-        for (ArtHashtag artHashtag : artHashtagList) {
+        for (ArtHashtag artHashtag : artHashtagListA) {
             assertThat(artHashtag.getHashtag()).isIn(registerHashTag1, registerHashTag2, registerHashTag3);
             System.out.println(artHashtag.getHashtag());
         }
 
-        assertThat(artHashtagList.size()).isEqualTo(3);
+        assertThat(artHashtagListA.size()).isEqualTo(3);
 
+        // 삭제하고 ArtHashtag 조회
+        artService.removeHashtag(art.getId(), hashTag2);
+        List<ArtHashtag> artHashtagListB = artHashtagRepository.findHashtagByArtId(art.getId());
+
+        for (ArtHashtag artHashtag : artHashtagListB) {
+            assertThat(artHashtag.getHashtag()).isIn(registerHashTag1, registerHashTag2, registerHashTag3);
+            System.out.println(artHashtag.getHashtag());
+        }
+
+        assertThat(artHashtagListB.size()).isEqualTo(2);
     }
 }
